@@ -6,8 +6,8 @@ class Users{
     //attributes
 
     public $first_name;
-    public $middlename;
-    public $lastname;
+    public $middle_name;
+    public $last_name;
     public $email;
     public $username;
     public $password;
@@ -24,7 +24,7 @@ class Users{
         (:first_name, :middle_name, :last_name, :email, :username, :password);";
 
         $query = $this->db->connect()->prepare($sql);
-        $query->bindParam(':first_name', $this->firstname);
+        $query->bindParam(':first_name', $this->first_name);
         $query->bindParam(':middle_name', $this->middle_name);
         $query->bindParam(':last_name', $this->last_name);
         $query->bindParam(':email', $this->email);

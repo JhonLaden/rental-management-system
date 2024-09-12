@@ -1,5 +1,28 @@
 <!-- navigation bar -->
 
+<?php 
+    require_once '../../backend/classes/users.class.php';
+
+    session_start();
+
+    $users = new Users();
+    $logged_user = '';
+
+    $accounts = $users->show();
+    foreach($accounts as $keys => $value){ 
+
+        if(isset($_SESSION['user_id'])){
+            if( $_SESSION['user_id'] == $value['user_id']){ // get the account with the same id
+                $users->email = $value['email'];
+                $logged_user = $users->show_email();
+                break;
+            }
+        }
+        
+    }
+    
+?>
+
  
 <nav class="navbar navbar-expand-lg navbar-transparent">
     <div class="container">
@@ -24,17 +47,25 @@
                     <a class="nav-link active fw-bolder" aria-current="page" href="#">Contact</a>
                 </li>
 
+                <?php 
+                        if (isset($_SESSION['user_id'])){
+                             ?>   
+                            
+                    
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle fw-bolder" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Profile
+                        <?php echo $logged_user[0]['username'];   ?>
                     </a>
                     <ul class="dropdown-menu bg">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Log out</a></li>
+                    <li><a class="dropdown-item" href="../../backend/tools/logout_tool.php">Log out</a></li>
                     </ul>
                 </li>
+                <?php
+                    }
+                ?>
             </ul>
         </div>
     </div>

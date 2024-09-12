@@ -2,6 +2,10 @@
         <?php
             require '../includes/head.php';
             require '../includes/header.php';
+
+
+            
+
         ?>
         
         
@@ -44,13 +48,14 @@
 
                     <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-dark" value = "Login"></input>
+                    <input type="submit" class="btn btn-dark" name = "login-submit" value = "Login"></input>
                 </div>
                     </form>
                 </div>
                 
                 </div>
             </div>
+
         </div>
 
         <!-- Register modal -->
@@ -63,44 +68,49 @@
                 </div>
                 <div class="modal-body">
                     <!-- Registration Form Here -->
-                    <form>
+                    <form method = "POST">
                     <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="John" required>
+                        <label for="firstName" class="form-label" >First Name</label>
+                        <input type="text" class="form-control" id="firstName" name = "firstname" placeholder="John" >
                     </div>
                     <div class="mb-3">
                         <label for="middleName" class="form-label">Middle Name (optional)</label>
-                        <input type="text" class="form-control" id="middleName" placeholder="M">
+                        <input type="text" class="form-control" id="middleName " name = "middlename" placeholder="M">
                     </div>
                     <div class="mb-3">
                         <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+                        <input type="text" class="form-control" id="lastName" name = "lastname"  placeholder="Doe" >
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                        <input type="email" class="form-control" id="email" name = "email" placeholder="name@example.com" >
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Username" required>
+                        <input type="text" class="form-control" id="username" name = "username"  placeholder="Username" >
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="password" class="form-control" id="password" name = "password"  placeholder="Password" >
                     </div>
+
+                    <p class = "error-text text-center text-danger"></p>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-dark">Register</button>
+                        <input type="submit" class="btn btn-dark" name = "signup-submit" value = "sign up"></input>
                     </div>
                     </form>
                 </div>
                 
                 </div>
             </div>
+            <script src = "../js/signup.js"></script>
+
         </div>
 
-    <script src = "../js/login.js"></script>
+        <script src = "../js/login.js"></script>
+
 
 
         

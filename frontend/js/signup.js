@@ -1,22 +1,22 @@
 $(document).ready(function(){
-    // Select the form element within the login modal
-    const form = $('.login-modal form');
+    // Select the form element within the signup modal
+    const form = $('.signup-modal form');
 
     // Select the submit button within the form
-    const continueBtn = form.find('input[name="login-submit"]');
+    const continueBtn = form.find('input[name="signup-submit"]');
 
-    // Select the error text within the same form (scoped to the login modal)
+    // Select the error text within the same form (scoped to the signup modal)
     const errorText = form.find('.error-text');
-
+    
     // Prevent the default form submission behavior
     form.submit(function(e){
         e.preventDefault(); // prevent submission
     });
-
+    
     // Bind a click event handler to the continue button
     continueBtn.click(function(){
         let xhr = new XMLHttpRequest(); 
-        xhr.open("POST", "../../backend/tools/login_tool.php", true);
+        xhr.open("POST", "../../backend/tools/signup_tool.php", true);
 
         xhr.onload = ()=> {
             if(xhr.readyState === XMLHttpRequest.DONE){

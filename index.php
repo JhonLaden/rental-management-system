@@ -6,14 +6,12 @@
     session_start();
 
     //check if user is login already otherwise send to login page
-    if (isset($_SESSION['user_type']) == 'admin'){
-        header('location: frontend/admin/dashboard.php');
-    }
-    else if (isset($_SESSION['user_type']) == 'staff'){
+    if (isset($_SESSION['login'])){
         header('location: frontend/user/home.php');
     }
     else{
-        header('location: login.php');
+        header('location: frontend/user/home.php');
+
     }
 
 ?>

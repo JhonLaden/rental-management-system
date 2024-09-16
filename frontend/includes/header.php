@@ -14,7 +14,7 @@
         if(isset($_SESSION['user_id'])){
             if( $_SESSION['user_id'] == $value['user_id']){ // get the account with the same id
                 $users->email = $value['email'];
-                $logged_user = $users->show_email();
+                $logged_user = $users->show_email()[0];
                 break;
             }
         }
@@ -54,7 +54,7 @@
                     
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle fw-bolder" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo $logged_user[0]['username'];   ?>
+                        <?php echo $logged_user['username'];   ?>
                     </a>
                     <ul class="dropdown-menu bg">
                     <li><a class="dropdown-item" href="#">Profile</a></li>

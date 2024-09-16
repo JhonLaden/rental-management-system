@@ -110,9 +110,6 @@
         </div>
 
         <script src = "../js/login.js"></script>
-
-
-
         
 <?php 
     include '../includes/footer.php';

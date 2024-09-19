@@ -2,6 +2,8 @@
     $title = 'browse';
     require '../includes/head.php';
     require '../includes/header.php';
+
+    
 ?>
         <section class = "container mt-5">
             <h1> Manage Items </h1>
@@ -12,7 +14,7 @@
             <table class="table table-bordered table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>NAME</th>
                 
                     <th>RENTAL PRICE</th>
@@ -22,58 +24,62 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>ipsum</td>
-                    <td>$100</td>
-                    <td>$50</td>
-                    <td>4</td>
-                    <td class ="text-center d-flex justify-content-center gap-2">
-                        <button class="btn btn-primary btn-sm-danger"><i class="bi bi-pencil-square"></i> </button>
-                        <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Lorem </td>
+                <?php
+                        
+                    require_once '../../backend/classes/item.class.php';
 
-                    <td>$150</td>
-                    <td>$75</td>
-                    <td>3</td>
+                    $item = new Item();
+                    
+                    //We will now fetch all the records in the array using loop
+                    //use as a counter, not required but suggested for the table
+                    $i = 1;
+                    //loop for each record found in the array
+                    foreach ($item->show() as $value){ //start of loop
+                    ?>
+                <tr>
+                    <td><?php echo $i ?></td>
+                    <td><?php echo  $value['name'] ?></td>
+                    <td><?php echo "₱ ". $value['rental_cost'] ?></td>
+                    <td><?php echo "₱ ". $value['deposit_cost'] ?></td>
+                    <td><?php echo $value['quantity'] ?></td>
                     <td class ="text-center d-flex justify-content-center gap-2">
                         <button class="btn btn-primary btn-sm-danger"><i class="bi bi-pencil-square"></i> </button>
                         <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
                     </td>
                 </tr>
-                <!-- Add more rows as needed -->
+                
+                <?php
+                    $i++;
+                    }
+                ?>
             </tbody>
         </table>
 
         <div class = "d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
                 Add Item
             </button>
         </div>
        
 
         <!-- The Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade add-item-modal" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                        <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Modal Body Content -->
-                        <form id="exampleForm">
+                        <form id="addItemForm" method = "POST">
                             <div class="mb-3">
                                 <label for="inputName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter item name" required>
+                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter item name" >
                             </div>
                             <div class="mb-3">
                                 <label for="inputType" class="form-label">Type</label>
-                                <select class="form-select" id="inputType" name="type" required>
+                                <select class="form-select" id="inputType" name="type" >
                                     <option value="" disabled selected>Select type</option>
                                     <option value="gown">Gown</option>
                                     <option value="suit">Suit</option>
@@ -81,28 +87,59 @@
                             </div>
                             <div class="mb-3">
                                 <label for="inputSize" class="form-label">Size</label>
-                                <input type="text" class="form-control" id="inputSize" name="size" placeholder="Enter size" required>
+                                <input type="number" class="form-control" id="inputSize" name="size" placeholder="Enter size" >
                             </div>
                             <div class="mb-3">
                                 <label for="inputDepositCost" class="form-label">Deposit Cost</label>
-                                <input type="number" class="form-control" id="inputDepositCost" name="depositCost" placeholder="Enter deposit cost" required>
+                                <input type="number" class="form-control" id="inputDepositCost" name="deposit_cost" placeholder="Enter deposit cost" >
                             </div>
                             <div class="mb-3">
                                 <label for="inputRentalCost" class="form-label">Rental Cost</label>
-                                <input type="number" class="form-control" id="inputRentalCost" name="rentalCost" placeholder="Enter rental cost" required>
+                                <input type="number" class="form-control" id="inputRentalCost" name="rental_cost" placeholder="Enter rental cost" >
                             </div>
-                            <div class="error-text text-danger" style="display: none;"></div>
+                            <div class="error-text text-danger text-center" style="display: none;"></div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="submitBtn" name = "add-item-submit">Add Item</button>
+                            </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="submitBtn">Add Item</button>
-                    </div>
+                    
                 </div>
             </div>
         
         </section>
 
+
+        <!-- ERROR! NOT SHOWING TOAST WHEN SUBMIT ITEM -->
+        <!-- toast for feedback when adding item -->
+        <?php 
+            if(isset($_POST['add-item-submit'])) {?>
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="addItemToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Success</strong>
+                            <small>Just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            Item Added!
+                        </div>
+                    </div>
+                </div>
+
+        <?php
+          
+            }
+          
+        ?>
+        
+</div>
+
+        <script src ="../js/additem.js"></script>
+        <script src ="../js/manage.js"></script>
+
 <?php
-    require '../includes/footer.php';
+    require '../includes/footer.php'
 ?>

@@ -7,7 +7,7 @@
         $user = new Users();
 
         $firstname = htmlentities($_POST['firstname']);
-        $middlename = htmlentities($_POST['middlename']);
+        $middlename = htmlentities($_POST['middlename'] ?? '');
         $lastname = htmlentities($_POST['lastname']);
         $email = htmlentities($_POST['email']);
         $username = htmlentities($_POST['username']);

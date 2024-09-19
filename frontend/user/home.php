@@ -71,15 +71,15 @@
                     <form method = "POST">
                     <div class="mb-3">
                         <label for="firstName" class="form-label" >First Name</label>
-                        <input type="text" class="form-control" id="firstName" name = "firstname" placeholder="John" >
+                        <input type="text" class="form-control" id="firstName" name = "firstname" placeholder="Jhon" >
                     </div>
                     <div class="mb-3">
                         <label for="middleName" class="form-label">Middle Name (optional)</label>
-                        <input type="text" class="form-control" id="middleName " name = "middlename" placeholder="M">
+                        <input type="text" class="form-control" id="middleName " name = "middlename" placeholder="Bayle">
                     </div>
                     <div class="mb-3">
                         <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name = "lastname"  placeholder="Doe" >
+                        <input type="text" class="form-control" id="lastName" name = "lastname"  placeholder="Adjaluddin" >
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>

@@ -5,10 +5,17 @@
 
     
 ?>
+        <?php
+            if(isset($_SESSION['user_id'])){
+                $user_id = $_SESSION['user_id'];
+            }else{
+                header('location: frontend/user/home.php');
+            }
+        ?>
         <section class = "container mt-5">
             <h1> Manage Items </h1>
             <div class = "d-flex justify-content-end gap-2 mb-2">
-                <input type="text" placeholder = "Search..."> <button class = "btn btn-primary"><i class="bi bi-search"></i> </button>
+                <input type="text" placeholder = "Search..." id = "searchInput" name = "query"> <button class = "btn btn-primary" id ="searchButton"><i class="bi bi-search"></i> </button>
             </div>
 
             <table class="table table-bordered table-hover">
@@ -25,31 +32,36 @@
             </thead>
             <tbody>
                 <?php
-                        
                     require_once '../../backend/classes/item.class.php';
 
                     $item = new Item();
                     
-                    //We will now fetch all the records in the array using loop
-                    //use as a counter, not required but suggested for the table
-                    $i = 1;
-                    //loop for each record found in the array
-                    foreach ($item->show() as $value){ //start of loop
-                    ?>
+                    // Fetch records based on user ID
+                    $results = $item->show($user_id); 
+                    if (!empty($results)) {
+                        $i = 1;
+                        foreach ($results as $value) {
+                ?>
                 <tr>
-                    <td><?php echo $i ?></td>
-                    <td><?php echo  $value['name'] ?></td>
-                    <td><?php echo "₱ ". $value['rental_cost'] ?></td>
-                    <td><?php echo "₱ ". $value['deposit_cost'] ?></td>
-                    <td><?php echo $value['quantity'] ?></td>
-                    <td class ="text-center d-flex justify-content-center gap-2">
-                        <button class="btn btn-primary btn-sm-danger"><i class="bi bi-pencil-square"></i> </button>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo htmlspecialchars($value['name']); ?></td>
+                    <td><?php echo "₱ " . htmlspecialchars($value['rental_cost']); ?></td>
+                    <td><?php echo "₱ " . htmlspecialchars($value['deposit_cost']); ?></td>
+                    <td><?php echo htmlspecialchars($value['quantity']); ?></td>
+                    <td class="text-center d-flex justify-content-center gap-2">
+                        <button class="btn btn-primary btn-sm-danger"><i class="bi bi-pencil-square"></i></button>
                         <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
                     </td>
                 </tr>
-                
                 <?php
-                    $i++;
+                            $i++;
+                        }
+                    } else {
+                ?>
+                <tr>
+                    <td colspan="6" class="text-center">No records found</td>
+                </tr>
+                <?php
                     }
                 ?>
             </tbody>

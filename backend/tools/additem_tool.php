@@ -4,6 +4,7 @@
 
         session_start();
 
+        $owner_id = $_SESSION['user_id'];
         $item = new Item();
 
         $name = htmlentities($_POST['name'] ?? '');
@@ -20,6 +21,7 @@
             $item->deposit_cost = $deposit_cost;
             $item->rental_cost = $rental_cost;
             $item->quantity = 1;
+            $item->owner_id = $owner_id;
 
             if ($item->add_item()) {
                     echo 'success';

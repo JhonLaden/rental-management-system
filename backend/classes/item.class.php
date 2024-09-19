@@ -20,8 +20,8 @@ class Item{
 
     //Methods
     function add_item(){
-        $sql = "INSERT INTO item (name, type, size,  deposit_cost, rental_cost, quantity) VALUE 
-        (:name, :type, :size, :deposit_cost, :rental_cost, :quantity);";
+        $sql = "INSERT INTO item (name, type, size,  deposit_cost, rental_cost, quantity, owner_id) VALUE 
+        (:name, :type, :size, :deposit_cost, :rental_cost, :quantity, :owner_id);";
 
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':name', $this->name);
@@ -30,6 +30,8 @@ class Item{
         $query->bindParam(':deposit_cost', $this->deposit_cost);
         $query->bindParam(':rental_cost', $this->rental_cost);
         $query->bindParam(':quantity', $this->quantity);
+        $query->bindParam(':owner_id', $this->owner_id);
+
 
 
         if($query->execute()){
@@ -39,11 +41,14 @@ class Item{
         }
     }
 
-    function show(){
+    function show($user_id){
         $sql = "SELECT * FROM item 
-        ORDER BY item.name DESC;
+        WHERE owner_id = :id
+        ORDER BY item.name ASC;
         LIMIT 5; ";
         $query =  $this->db->connect()->prepare($sql);
+        $query->bindParam(':id', $user_id);
+
     
         if($query->execute()){
             $data = $query->fetchAll();
@@ -60,6 +65,26 @@ class Item{
     
         if($query->execute()){
             return $query = $query->fetchAll();
+        } else {
+            return [];
+        }
+    }
+
+    function search($query, $user_id) {
+        // Use wildcards for partial matching
+        $sql = "SELECT * FROM item 
+        WHERE name LIKE :query
+        AND owner_id = :user_id
+        ORDER BY name ASC;";
+    
+        $queryStmt = $this->db->connect()->prepare($sql);
+        $searchQuery = '%' . $query . '%';
+        $queryStmt->bindParam(':query', $searchQuery);
+        $queryStmt->bindParam(':user_id', $user_id);
+
+    
+        if ($queryStmt->execute()) {
+            return $queryStmt->fetchAll(PDO::FETCH_ASSOC); // Fetch results as an associative array
         } else {
             return [];
         }

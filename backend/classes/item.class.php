@@ -5,12 +5,15 @@ require_once 'database.php';
 class Item{
     //attributes
 
+    public $id;
     public $name;
     public $type;
     public $size;
     public $deposit_cost;
     public $rental_cost;
     public $quantity;
+    public $owner;
+
 
     protected $db ;
 
@@ -41,6 +44,8 @@ class Item{
         }
     }
 
+    
+
     function show($user_id){
         $sql = "SELECT * FROM item 
         WHERE owner_id = :id
@@ -50,6 +55,18 @@ class Item{
         $query->bindParam(':id', $user_id);
 
     
+        if($query->execute()){
+            $data = $query->fetchAll();
+        }
+        return $data;
+        
+    }
+
+    function show_items(){
+        $sql = "SELECT * FROM item 
+        ORDER BY name ASC;";
+        $query =  $this->db->connect()->prepare($sql);
+
         if($query->execute()){
             $data = $query->fetchAll();
         }
@@ -89,6 +106,51 @@ class Item{
             return [];
         }
     }
+
+    function search_item(){
+        $sql = "SELECT item.*, user.* 
+        FROM item 
+        JOIN user ON item.owner_id = user.user_id
+        WHERE item.item_id = :item_id";
+    
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':item_id', $this->id);
+
+
+    
+        if($query->execute()){
+            return $query = $query->fetchAll();
+        } else {
+            return [];
+        }
+    }
+
+    function update_item() {
+        $sql = "UPDATE item 
+                SET name = :name, type = :type, size = :size, 
+                    deposit_cost = :deposit_cost, rental_cost = :rental_cost
+                WHERE item_id = :id AND owner_id = :owner_id";
+
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':name', $this->name);
+        $query->bindParam(':type', $this->type);
+        $query->bindParam(':size', $this->size);
+        $query->bindParam(':deposit_cost', $this->deposit_cost);
+        $query->bindParam(':rental_cost', $this->rental_cost);
+        $query->bindParam(':id', $this->id);
+        $query->bindParam(':owner_id', $this->owner_id);
+
+        return $query->execute(); // Return the result directly
+    }
+
+    function delete_item($item_id) {
+        $sql = "DELETE FROM item WHERE item_id = :item_id";
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':item_id', $item_id);
+        
+        return $query->execute();
+    }
+    
 
 }
 

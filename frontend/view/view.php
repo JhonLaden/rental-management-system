@@ -26,7 +26,7 @@
             
         ?>
         <section class = "container mt-5">
-            <h1> Manage Items </h1>
+            <h1> View Bookings </h1>
             <div class = "d-flex justify-content-end gap-2 mb-2">
                 <input type="text" placeholder = "Search..." id = "searchInput" name = "query"> <button class = "btn btn-primary" id ="searchButton"><i class="bi bi-search"></i> </button>
             </div>
@@ -36,31 +36,33 @@
                 <tr>
                     <th>#</th>
                     <th>NAME</th>
-                
-                    <th>RENTAL PRICE</th>
                     <th>DEPOSIT COST</th>
-                    <th>QUANTITY</th>
+                    <th>Rental Cost</th>
+                    <th>Status</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    require_once '../../backend/classes/item.class.php';
+                    require_once '../../backend/classes/schedule.class.php';
 
-                    $item = new Item();
+                    $schedule = new Schedule();
+                    $schedule->borrower_id = $_SESSION['user_id'];
                     
+
                     // Fetch records based on user ID
-                    $results = $item->show($user_id); 
+                    $results = $schedule->show(); 
+                   
                     if (!empty($results)) {
                         $i = 1;
                         foreach ($results as $value) {
                 ?>
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td><?php echo htmlspecialchars($value['name']); ?></td>
-                    <td><?php echo "₱ " . htmlspecialchars($value['rental_cost']); ?></td>
+                    <td><?php echo $value['name']; ?></td>
                     <td><?php echo "₱ " . htmlspecialchars($value['deposit_cost']); ?></td>
-                    <td><?php echo htmlspecialchars($value['quantity']); ?></td>
+                    <td><?php echo "₱ " . htmlspecialchars($value['rental_cost']); ?></td>
+                    <td> Pending</td>
                     <td class="text-center d-flex justify-content-center gap-2">
                         <button class="btn btn-primary btn-sm edit-item-btn" data-bs-toggle="modal" data-id="<?php echo $value['item_id']; ?>"
                             data-name="<?php echo htmlspecialchars($value['name']); ?>"
@@ -89,11 +91,6 @@
             </tbody>
         </table>
 
-        <div class = "d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
-                Add Item
-            </button>
-        </div>
        
 
         <!-- add item Modal -->

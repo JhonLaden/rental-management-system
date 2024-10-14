@@ -1,17 +1,17 @@
-<?php
-    $title = 'browse';
-    require '../includes/head.php';
-    require '../includes/header.php';
+<div class = "w-100 bg-light m-5 p-4 rounded-5">
 
     
-?>
-        <?php
-            if(isset($_SESSION['user_id'])){
-                $user_id = $_SESSION['user_id'];
-            }else{
-                header('location: frontend/user/home.php');
-            }
+    <div class = "containter d-flex  ">
+        <div class = "col-8  px-5 py-4">
+            <div class = "mb-5">
+                <h1>Manage Accounts</h1>
+                <span class = "opacity-25 fw-bold">22 August - 25 October, 2024</span>
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
 
+    <?php
 
             if (isset($_POST['add-item-submit'])) {
                 // Check if this is an update or a new item
@@ -26,51 +26,46 @@
             
         ?>
         <section class = "container mt-5">
-            <h1> Manage Items </h1>
-            <div class = "d-flex justify-content-end gap-2 mb-2">
-                <input type="text" placeholder = "Search..." id = "searchInput" name = "query"> <button class = "btn btn-primary" id ="searchButton"><i class="bi bi-search"></i> </button>
-            </div>
 
-            <table class="table table-bordered table-hover">
+        <div class = "d-flex justify-content-end gap-2 mb-2">
+            <input type="text" placeholder = "Search..." id = "searchInput" name = "query"> <button class = "btn btn-primary" id ="searchButton"><i class="bi bi-search"></i> </button>
+        </div>
+            <table class="table table-bordered table-hover"  >
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
-                    <th>NAME</th>
+                    <th>FIRST NAME</th>
                 
-                    <th>RENTAL PRICE</th>
-                    <th>DEPOSIT COST</th>
-                    <th>QUANTITY</th>
+                    <th>LASTNAME</th>
+                    <th>USERNAME</th>
+                    <th>EMAIL</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody  class ="bg-danger" style = "height: 100px; overflow-y: scroll";>
                 <?php
-                    require_once '../../backend/classes/item.class.php';
+                    require_once '../../backend/classes/users.class.php';
 
-                    $item = new Item();
+                    $user = new Users();
                     
                     // Fetch records based on user ID
-                    $results = $item->show($user_id); 
+                    $results = $user->show(); 
                     if (!empty($results)) {
                         $i = 1;
                         foreach ($results as $value) {
                 ?>
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td><?php echo htmlspecialchars($value['name']); ?></td>
-                    <td><?php echo "₱ " . htmlspecialchars($value['rental_cost']); ?></td>
-                    <td><?php echo "₱ " . htmlspecialchars($value['deposit_cost']); ?></td>
-                    <td><?php echo htmlspecialchars($value['quantity']); ?></td>
+                    <td><?php echo htmlspecialchars($value['first_name']); ?></td>
+                    <td><?php echo  htmlspecialchars($value['last_name']); ?></td>
+                    <td><?php echo  htmlspecialchars($value['username']); ?></td>
+                    <td><?php echo htmlspecialchars($value['email']); ?></td>
                     <td class="text-center d-flex justify-content-center gap-2">
-                        <button class="btn btn-primary btn-sm edit-item-btn" data-bs-toggle="modal" data-id="<?php echo $value['item_id']; ?>"
-                            data-name="<?php echo htmlspecialchars($value['name']); ?>"
-                            data-type="<?php echo htmlspecialchars($value['type']); ?>"
-                            data-size="<?php echo htmlspecialchars($value['size']); ?>"
-                            data-deposit-cost="<?php echo htmlspecialchars($value['deposit_cost']); ?>"
-                            data-rental-cost="<?php echo htmlspecialchars($value['rental_cost']); ?>">
+                        <button class="btn btn-primary btn-sm edit-item-btn" data-bs-toggle="modal" >
+                           
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button class="btn btn-danger delete-item-btn" data-id = "<?php echo $value['item_id']; ?> "><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-danger delete-item-btn"><i class="bi bi-trash"></i></button>
                     </td>
 
 
@@ -91,7 +86,7 @@
 
         <div class = "d-flex justify-content-end">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
-                Add Item
+                Add Account
             </button>
         </div>
        
@@ -245,8 +240,4 @@
         <script src ="../js/editItem.js"></script>
         <script src ="../js/editItemAjax.js"></script>
 
-
-
-<?php
-    require '../includes/footer.php'
-?>
+</div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2024 at 07:46 PM
+-- Generation Time: Oct 14, 2024 at 08:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -74,7 +74,6 @@ CREATE TABLE `rental_schedule` (
 --
 
 INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL),
 (11, '2024-10-17', '2024-10-19', 1, 1, 9),
 (12, '2024-10-16', '2024-10-26', 1, 4, 12),
 (13, '2024-10-25', '2024-10-26', 1, 4, 12),
@@ -110,7 +109,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`, `username`, `password`) VALUES
 (1, 'Jhon Laden', 'Bayle', 'Adjaluddin', 'jhonladen@yahoo.com', 'Jhon', '123'),
 (4, 'Isaac', 'Bayle', 'Adjaluddin', 'isaac@gmail.com', 'IsaacRaddi', '123'),
-(5, 'edil khan', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123');
+(5, 'edil khan', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123'),
+(6, 'admin', '', 'admin', 'admin@admin.com', 'admin', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -158,7 +158,7 @@ ALTER TABLE `rental_schedule`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

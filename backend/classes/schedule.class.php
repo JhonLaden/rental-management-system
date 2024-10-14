@@ -58,6 +58,24 @@ class Schedule{
         return $data;
     }
 
+    function show_schedules() {
+        $sql = "SELECT rental_schedule.*, item.*, user.*
+        FROM rental_schedule 
+        LEFT JOIN user ON user.user_id = rental_schedule.borrower_id
+	    LEFT JOIN item ON item.item_id = rental_schedule.item_id";
+
+    
+        $query = $this->db->connect()->prepare($sql);
+    
+        if ($query->execute()) {
+            $data = $query->fetchAll(); // Optional: Fetch as associative array
+        } else {
+            $data = []; // Return an empty array if no records found or if execution fails
+        }
+        
+        return $data;
+    }
+
     function show_email(){
         $sql = "SELECT * FROM schedule WHERE email = :email";
     

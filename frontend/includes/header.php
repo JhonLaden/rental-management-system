@@ -12,7 +12,7 @@
     foreach($accounts as $keys => $value){ 
 
         if(isset($_SESSION['user_id'])){
-            if( $_SESSION['user_id'] == $value['user_id']){ // get the account with the same id
+           if( $_SESSION['user_id'] == $value['user_id']){ // get the account with the same id
                 $users->email = $value['email'];
                 $logged_user = $users->show_email()[0];
                 break;

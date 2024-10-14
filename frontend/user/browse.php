@@ -2,9 +2,16 @@
     $title = 'browse';
     require '../includes/head.php';
     require '../includes/header.php';
+
+
+    if(isset($_SESSION['user_id'])){
+        if($_SESSION['user_id'] == 6){
+            header('location: ../admin/dashboard.php');
+        }
+    }
 ?>
         
-        <div class="container mt-5 d-flex align-items-center">  
+        <div class="container mt-5 d-flex align-items-center">      
             <input class=" w-50 rounded-1 me-2" type="search" placeholder="Search...">  
             <button type="submit" class="btn btn-primary">  
                 <i class="bi bi-search"></i>  

@@ -4,17 +4,12 @@
     <div class = "containter d-flex  ">
         <div class = "col-8  px-5 py-4">
             <div class = "mb-5">
-                <h1>Manage Items</h1>
+                <h1>Manage Accounts</h1>
                 <span class = "opacity-25 fw-bold">22 August - 25 October, 2024</span>
                 <img src="" alt="">
             </div>
         </div>
-        
-
     </div>
-
-   
-    
 
     <?php
 
@@ -35,26 +30,28 @@
         <div class = "d-flex justify-content-end gap-2 mb-2">
             <input type="text" placeholder = "Search..." id = "searchInput" name = "query"> <button class = "btn btn-primary" id ="searchButton"><i class="bi bi-search"></i> </button>
         </div>
+        <div  style = "max-height: 500px; overflow-y: scroll;">
+       
+        
             <table class="table table-bordered table-hover"  >
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
-                    <th>NAME</th>
-            
-                    <th>Borrowr</th>
+                    <th>ITEM NAME</th>
+                    <th>RENTAL COST</th>
                     <th>DEPOSIT COST</th>
-                    <th>QUANTITY</th>
+                    <th>STATUS</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
-            <tbody  class ="bg-danger" style = "height: 100px; overflow-y: scroll";>
+            <tbody  class ="bg-danger h-50" >
                 <?php
-                    require_once '../../backend/classes/item.class.php';
+                    require_once '../../backend/classes/schedule.class.php';
 
-                    $item = new Item();
+                    $schedule = new Schedule();
                     
                     // Fetch records based on user ID
-                    $results = $item->show_items(); 
+                    $results = $schedule->show_schedules(); 
                     if (!empty($results)) {
                         $i = 1;
                         foreach ($results as $value) {
@@ -62,19 +59,15 @@
                 <tr>
                     <td><?php echo $i; ?></td>
                     <td><?php echo htmlspecialchars($value['name']); ?></td>
-                    <td><?php echo "₱ " . htmlspecialchars($value['rental_cost']); ?></td>
-                    <td><?php echo "₱ " . htmlspecialchars($value['deposit_cost']); ?></td>
-                    <td><?php echo htmlspecialchars($value['quantity']); ?></td>
+                    <td><?php echo  htmlspecialchars(number_format($value['rental_cost']),2); ?></td>
+                    <td><?php echo  htmlspecialchars(number_format($value['deposit_cost']),2); ?></td>
+                    <td> pending</td>
                     <td class="text-center d-flex justify-content-center gap-2">
-                        <button class="btn btn-primary btn-sm edit-item-btn" data-bs-toggle="modal" data-id="<?php echo $value['item_id']; ?>"
-                            data-name="<?php echo htmlspecialchars($value['name']); ?>"
-                            data-type="<?php echo htmlspecialchars($value['type']); ?>"
-                            data-size="<?php echo htmlspecialchars($value['size']); ?>"
-                            data-deposit-cost="<?php echo htmlspecialchars($value['deposit_cost']); ?>"
-                            data-rental-cost="<?php echo htmlspecialchars($value['rental_cost']); ?>">
+                        <button class="btn btn-primary btn-sm edit-item-btn" data-bs-toggle="modal" >
+                           
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button class="btn btn-danger delete-item-btn" data-id = "<?php echo $value['item_id']; ?> "><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-danger delete-item-btn"><i class="bi bi-trash"></i></button>
                     </td>
 
 
@@ -92,10 +85,11 @@
                 ?>
             </tbody>
         </table>
+        </div>
 
         <div class = "d-flex justify-content-end">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
-                Add Item
+                Add Account
             </button>
         </div>
        

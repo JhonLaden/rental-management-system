@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
     // Add click event to edit buttons
     $('.edit-item-btn').on('click', function() {
         // Get data from the clicked button
@@ -22,4 +22,4 @@ $(document).ready(function() {
         // Show the Edit Item Modal
         $('#editItemModal').modal('show');
     });
-});
+

@@ -18,7 +18,7 @@
                 if (!empty($emails)) {
                     $row = $emails[0]; // Assuming you only need the first row
                     if($row['email'] == $email && $row['password'] == $password){
-                        $_SESSION['user_id'] = $row['user_id'];
+                        $_SESSION['loggeduser'] = $row;
                         echo 'success';
                     }else{
                         echo 'Email or password is incorrect';

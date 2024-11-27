@@ -28,7 +28,7 @@
             <div class = "d-flex flex-column justify-content-center">
                 <p class = "m-0" >Name: <?php echo $selected_item['name'] ?></p>
                 <p class = "m-0">Size: <?php echo number_format($selected_item['size']); ?></p>
-                <p class = "m-0">Availability: in stock</p>
+                <p class = "m-0">Availability: <?php echo ($selected_item['in_stock']) ? 'In stock' : 'not available'; ?></p>
             </div>
         </div>
         <!-- 2nd container -->
@@ -42,7 +42,7 @@
                     <p><?php echo $selected_item['username']?></p>
                 </div>
                 <div class = "fw-bold">
-                    <span class = " opacity-50">15 successful lends</span>
+                    <span class = " opacity-50"><?php echo $selected_item['successful_lends'] ?> successful lends</span>
                 </div>
                 <div class = "my-4 fw-bold text-success">
                     <p class = "m-0">deposit fee: ₱ <?php echo number_format($selected_item['deposit_cost'],2);?></p>
@@ -57,46 +57,21 @@
                 </div>
             </div>
             <div class = "text-center">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">
-                    Rent Item
-                </button>
+                <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id']. "&lender_id=".$selected_item['owner_id']; ?>">
+                    <button type="submit" class="btn btn-primary">
+                        Rent Item
+                    </button>
+                </a>
             </div>
 
-           <!-- Book Item Modal -->
-            <div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookItemModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="bookItemModalLabel">Rental Schedule</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Modal Body Content -->
-                            <form id="bookItemForm" method="POST">
-                                <div class="mb-3">
-                                    <label for="inputRentalStart" class="form-label">Rental Start Date</label>
-                                    <input type="date" class="form-control" id="inputRentalStart" name="start_date" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="inputReturnDate" class="form-label">Return Date</label>
-                                    <input type="date" class="form-control" id="inputReturnDate" name="return_date" required>
-                                </div>
-                                <div class="error-text text-danger text-center" style="display: none;"></div>
-                                <div class="error-text text-danger"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" id="submitBookingBtn" name="book-item-submit">Confirm Rent</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
 
-      
+      <?php
+
+        include('../includes/scripts.php');
+      ?>
     <script src = "../js/addschedule.js"></script>
 
 <?php

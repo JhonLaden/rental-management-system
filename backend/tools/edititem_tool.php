@@ -4,7 +4,7 @@
 
     session_start();
 
-    $owner_id = $_SESSION['user_id'];
+    $logged_user = $_SESSION['loggeduser'];
     $item = new Item();
 
     // Retrieve the posted data
@@ -14,6 +14,7 @@
     $size = htmlentities($_POST['size'] ?? '');
     $deposit_cost = htmlentities($_POST['deposit_cost'] ?? '');
     $rental_cost = htmlentities($_POST['rental_cost'] ?? '');
+    $link = htmlentities($_POST['link'] ?? '');
 
     // Validate the inputs
     if(!empty($item_id) && !empty($name) && !empty($type) && !empty($size) && !empty($deposit_cost) && !empty($rental_cost)) {
@@ -25,11 +26,17 @@
         $item->size = $size;
         $item->deposit_cost = $deposit_cost;
         $item->rental_cost = $rental_cost;
-        $item->owner_id = $owner_id;
+        $item->owner_id = $logged_user['user_id'];
+        $message = [];
 
         // Attempt to update the item
         if ($item->update_item()) {
-            echo 'success';  // Output success message if update was successful
+            $message['title'] = "Update Successfully!";
+            $message['success'] = "Record is now updated.";
+            $message['edit'] = true;
+
+            $_SESSION['message'] = $message;
+            header('location: '. $link);
         } else {
             echo 'Something went wrong';  // Handle any errors during the update process
         }

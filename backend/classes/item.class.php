@@ -48,9 +48,7 @@ class Item{
 
     function show($user_id){
         $sql = "SELECT * FROM item 
-        WHERE owner_id = :id
-        ORDER BY item.name ASC;
-        LIMIT 5; ";
+        WHERE owner_id = :id";
         $query =  $this->db->connect()->prepare($sql);
         $query->bindParam(':id', $user_id);
 

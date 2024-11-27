@@ -4,8 +4,14 @@
 
         session_start();
 
-        $owner_id = $_SESSION['user_id'];
+        if(isset($_SESSION['loggeduser'])){
+            $logged_user = $_SESSION['loggeduser'];
+        }
+
+        $owner_id = $logged_user['user_id'];
         $item = new Item();
+        $message = [];
+        $link = htmlentities($_POST['link'] ?? '');
 
         $name = htmlentities($_POST['name'] ?? '');
         $type = htmlentities($_POST['type'] ?? '');
@@ -24,7 +30,13 @@
             $item->owner_id = $owner_id;
 
             if ($item->add_item()) {
-                    echo 'success';
+                    $message['add'] = true;
+                    $message['title'] = "Item uploaded Successfully!";
+                    $message['success'] = "Record is now updated.";
+                    $_SESSION['message'] = $message;
+                    header('location: '. $link);
+                    exit();
+
             } else {
                 echo 'Something went wrong';
             }

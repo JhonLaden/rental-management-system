@@ -2,10 +2,6 @@
         <?php
             require '../includes/head.php';
             require '../includes/header.php';
-
-
-            
-
         ?>
         
         
@@ -108,9 +104,12 @@
             <script src = "../js/signup.js"></script>
 
         </div>
+        <?php
+            include '../includes/scripts.php';
 
+        ?>
         <script src = "../js/login.js"></script>
-        
+
 <?php 
     include '../includes/footer.php';
 ?>

@@ -6,20 +6,12 @@
     session_start();
 
     $users = new Users();
-    $logged_user = '';
+    if(isset($_SESSION['loggeduser'])){
+        $logged_user = $_SESSION['loggeduser'];
+    }
 
     $accounts = $users->show();
-    foreach($accounts as $keys => $value){ 
 
-        if(isset($_SESSION['user_id'])){
-           if( $_SESSION['user_id'] == $value['user_id']){ // get the account with the same id
-                $users->email = $value['email'];
-                $logged_user = $users->show_email()[0];
-                break;
-            }
-        }
-        
-    }
     
 ?>
 
@@ -48,7 +40,7 @@
                 </li>
 
                 <?php 
-                        if (isset($_SESSION['user_id'])){
+                        if (isset($logged_user)){
                              ?>   
                             
                     
@@ -58,7 +50,11 @@
                     </a>
                     <ul class="dropdown-menu bg">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="../manage/manage.php">Manage Items</a></li>
+                            
+                    <?php if (isset($logged_user) && ($logged_user['type'] === 'admin' || $logged_user['type'] === 'lender')): ?>
+                        <li><a class="dropdown-item" href="../manage/manage.php">Manage Items</a></li>
+                    <?php endif; ?>
+
                     <li><a class="dropdown-item" href="../view/view.php">View Items</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>
                     <li><hr class="dropdown-divider"></li>

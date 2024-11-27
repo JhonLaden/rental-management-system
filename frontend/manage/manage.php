@@ -6,34 +6,19 @@
     
 ?>
         <?php
-            if(isset($_SESSION['user_id'])){
-                $user_id = $_SESSION['user_id'];
+            if(isset($_SESSION['loggeduser'])){
+                $logged_user = $_SESSION['loggeduser'];
             }else{
-                header('location: frontend/user/home.php');
-            }
-
-
-            if (isset($_POST['add-item-submit'])) {
-                // Check if this is an update or a new item
-                if (isset($_POST['item_id']) && !empty($_POST['item_id'])) {
-                    // Update existing item logic here
-                    $item_id = $_POST['item_id'];
-                    // Update the item in the database using $item_id and the new values from the form
-                } else {
-                    echo('error item');
-                }
+                header('location: ../../frontend/');
             }
             
         ?>
-        <section class = "container mt-5">
+        <section class = "container my-5 table-responsive">
             <h1> Manage Items </h1>
-            <div class = "d-flex justify-content-end gap-2 mb-2">
-                <input type="text" placeholder = "Search..." id = "searchInput" name = "query"> <button class = "btn btn-primary" id ="searchButton"><i class="bi bi-search"></i> </button>
-            </div>
 
-            <table class="table table-bordered table-hover">
+            <table class=" table table-striped" id = "example">
             <thead class="table-dark">
-                <tr>
+                <tr>    
                     <th>#</th>
                     <th>NAME</th>
                 
@@ -50,7 +35,7 @@
                     $item = new Item();
                     
                     // Fetch records based on user ID
-                    $results = $item->show($user_id); 
+                    $results = $item->show($logged_user['user_id']); 
                     if (!empty($results)) {
                         $i = 1;
                         foreach ($results as $value) {
@@ -62,15 +47,30 @@
                     <td><?php echo "₱ " . htmlspecialchars($value['deposit_cost']); ?></td>
                     <td><?php echo htmlspecialchars($value['quantity']); ?></td>
                     <td class="text-center d-flex justify-content-center gap-2">
-                        <button class="btn btn-primary btn-sm edit-item-btn" data-bs-toggle="modal" data-id="<?php echo $value['item_id']; ?>"
-                            data-name="<?php echo htmlspecialchars($value['name']); ?>"
-                            data-type="<?php echo htmlspecialchars($value['type']); ?>"
-                            data-size="<?php echo htmlspecialchars($value['size']); ?>"
-                            data-deposit-cost="<?php echo htmlspecialchars($value['deposit_cost']); ?>"
-                            data-rental-cost="<?php echo htmlspecialchars($value['rental_cost']); ?>">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <button class="btn btn-danger delete-item-btn" data-id = "<?php echo $value['item_id']; ?> "><i class="bi bi-trash"></i></button>
+                        <div>
+                            <button class="btn btn-primary  edit-item-btn" data-bs-toggle="modal" 
+                                data-id="<?php echo $value['item_id']; ?>"
+                                data-name="<?php echo htmlspecialchars($value['name']); ?>"
+                                data-type="<?php echo htmlspecialchars($value['type']); ?>"
+                                data-size="<?php echo htmlspecialchars($value['size']); ?>"
+                                data-deposit-cost="<?php echo htmlspecialchars($value['deposit_cost']); ?>"
+                                data-rental-cost="<?php echo htmlspecialchars($value['rental_cost']); ?>"
+                                >
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </div>
+                        
+                        <form action="../../backend/tools/deleteitem_tool.php" method="POST" id = "deleteForm">
+                            <!-- Hidden input for delete action -->
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name ="link" value = "../../frontend/manage/manage.php">
+                            <input type="hidden" name ="item_id" value = "<?php echo $value['item_id'] ?>">
+
+                            <!-- Delete Button as a link with the item ID -->
+                            <button type="submit" class="btn btn-danger delete-item-btn" name="item_id" value="<?php echo $value['item_id']; ?>">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
                     </td>
 
 
@@ -80,18 +80,16 @@
                         }
                     } else {
                 ?>
-                <tr>
-                    <td colspan="6" class="text-center">No records found</td>
-                </tr>
+               
                 <?php
                     }
                 ?>
             </tbody>
         </table>
 
-        <div class = "d-flex justify-content-end">
+        <div class = "d-flex justify-content-end mt-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
-                Add Item
+            <i class="bi bi-upload"></i> Add Item
             </button>
         </div>
        
@@ -106,14 +104,15 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Body Content -->
-                        <form id="addItemForm" method = "POST">
+                        <form action = "../../backend/tools/additem_tool.php" id="addItemForm" method = "POST">
+                            <input type="hidden" name = "link" value = "../../frontend/manage/manage.php">
                             <div class="mb-3">
                                 <label for="inputName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter item name" >
+                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter item name" required >
                             </div>
                             <div class="mb-3">
                                 <label for="inputType" class="form-label">Type</label>
-                                <select class="form-select" id="inputType" name="type" >
+                                <select class="form-select" id="inputType" name="type"  required>
                                     <option value="" disabled selected>Select type</option>
                                     <option value="gown">Gown</option>
                                     <option value="suit">Suit</option>
@@ -121,15 +120,15 @@
                             </div>
                             <div class="mb-3">
                                 <label for="inputSize" class="form-label">Size</label>
-                                <input type="number" class="form-control" id="inputSize" name="size" placeholder="Enter size" >
+                                <input type="number" class="form-control" id="inputSize" name="size" placeholder="Enter size" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputDepositCost" class="form-label">Deposit Cost</label>
-                                <input type="number" class="form-control" id="inputDepositCost" name="deposit_cost" placeholder="Enter deposit cost" >
+                                <input type="number" class="form-control" id="inputDepositCost" name="deposit_cost" placeholder="Enter deposit cost" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputRentalCost" class="form-label">Rental Cost</label>
-                                <input type="number" class="form-control" id="inputRentalCost" name="rental_cost" placeholder="Enter rental cost" >
+                                <input type="number" class="form-control" id="inputRentalCost" name="rental_cost" placeholder="Enter rental cost" required>
                             </div>
                             <div class="error-text text-danger text-center" style="display: none;"></div>
 
@@ -154,8 +153,10 @@
                         </div>
                         <div class="modal-body">
                             <!-- Modal Body Content -->
-                            <form id="editItemForm" method="POST">
-                                <input type="hidden" name="item_id" id="editItemId"> <!-- Hidden input for item ID -->
+                            <form action = "../../backend/tools/edititem_tool.php" id="editItemForm" method="POST">
+                                <input type="hidden" name="item_id" value="<?php echo $value['item_id']; ?>">
+                                <input type="hidden" name="link" value = "../../frontend/manage/manage.php"> 
+
                                 <div class="mb-3">
                                     <label for="editName" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="editName" name="name" placeholder="Enter item name">
@@ -190,63 +191,25 @@
                 </div>
             </div>
 
-            <!-- Delete Confirmation Modal -->
-            <div class="modal fade" id="deleteItemModal" tabindex="-1" aria-labelledby="deleteItemModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteItemModalLabel">Confirm Delete</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete <strong id="deleteItemName"></strong>?</p>
-                            <input type="hidden" id="deleteItemId">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        
+            
         </section>
-
-
-        <!-- ERROR! NOT SHOWING TOAST WHEN SUBMIT ITEM -->
-        <!-- toast for feedback when adding item -->
-        <?php 
-            if(isset($_POST['add-item-submit'])) {?>
-                <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                    <div id="addItemToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">Success</strong>
-                            <small>Just now</small>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            Item Added!
-                        </div>
-                    </div>
-                </div>
-
-        <?php
-          
-            }
-          
-        ?>
         
+        
+<?php
+     include_once('../includes/scripts.php');
+?>
+        <script>
+            	
+            new DataTable('#example');
+
+        </script>
 </div>
-
-        <script src ="../js/additem.js"></script>
-        <script src ="../js/manage.js"></script>
-        <script src ="../js/editItem.js"></script>
-        <script src ="../js/editItemAjax.js"></script>
-
-
-
+       
+    
+<?php
+    include_once('../manage/manage_script.php');
+?>
+        
 <?php
     require '../includes/footer.php'
 ?>

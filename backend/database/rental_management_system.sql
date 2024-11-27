@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2024 at 08:32 PM
+-- Generation Time: Nov 27, 2024 at 09:19 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,24 +35,17 @@ CREATE TABLE `item` (
   `deposit_cost` decimal(11,2) DEFAULT NULL,
   `rental_cost` decimal(11,2) DEFAULT NULL,
   `quantity` int(11) DEFAULT 0,
-  `owner_id` int(11) DEFAULT NULL
+  `owner_id` int(11) DEFAULT NULL,
+  `in_stock` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_cost`, `quantity`, `owner_id`) VALUES
-(7, 'sadfsa', 'gown', 21.00, 234.00, 3242.00, 1, 1),
-(9, 'tuxedo', 'suit', 23.00, 343.00, 212.00, 1, 1),
-(12, 'black suit', 'suit', 21.00, 2342.00, 1324.00, 1, 4),
-(13, 'asdf', 'suit', 21.00, 324.00, 21.00, 1, 4),
-(14, 'Hikoo', 'suit', 123.00, 1234.00, 122.00, 1, 4),
-(15, 'black suit', 'suit', 21.00, 32.00, 12.00, 1, 5),
-(16, 'white gown', 'gown', 21.00, 123.00, 324.00, 1, 5),
-(19, 'Jhon', 'gown', 21.00, 23432.00, 12312.00, 1, 1),
-(20, 'sdfsd', 'gown', 21.00, 23432.00, 3300.00, 1, 1),
-(22, 'Red Velvet', 'gown', 21.00, 500.00, 500.00, 1, 4);
+INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_cost`, `quantity`, `owner_id`, `in_stock`) VALUES
+(61, 'sdfsd34', 'suit', 234.00, 2342.00, 34.00, 1, 7, 1),
+(62, '3sdfsd', 'gown', 34.00, 3232.00, 324.00, 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -66,25 +59,16 @@ CREATE TABLE `rental_schedule` (
   `return_date` date DEFAULT NULL,
   `borrower_id` int(11) DEFAULT NULL,
   `lender_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL
+  `item_id` int(11) DEFAULT NULL,
+  `status` varchar(255) DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rental_schedule`
 --
 
-INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`) VALUES
-(11, '2024-10-17', '2024-10-19', 1, 1, 9),
-(12, '2024-10-16', '2024-10-26', 1, 4, 12),
-(13, '2024-10-25', '2024-10-26', 1, 4, 12),
-(14, '2024-10-16', '2024-11-01', 1, 4, 12),
-(15, '2024-10-08', '2024-10-19', 1, 5, 16),
-(16, '2024-10-16', '2024-10-25', 1, 5, 16),
-(17, '2024-10-23', '2024-10-26', 1, 4, 12),
-(18, '2024-10-18', '2024-10-25', 1, 5, 16),
-(19, '2024-10-15', '2024-10-19', 1, 4, 22),
-(20, '2024-10-18', '2024-10-26', 1, 4, 12),
-(21, '2024-10-16', '2024-10-18', 1, 4, 14);
+INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`, `status`) VALUES
+(32, '2024-11-28', '2024-11-30', 4, 7, 61, 'pending');
 
 -- --------------------------------------------------------
 
@@ -99,18 +83,21 @@ CREATE TABLE `user` (
   `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL
+  `password` varchar(255) DEFAULT NULL,
+  `type` enum('admin','lender','client') DEFAULT 'client',
+  `successful_lends` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`, `username`, `password`) VALUES
-(1, 'Jhon Laden', 'Bayle', 'Adjaluddin', 'jhonladen@yahoo.com', 'Jhon', '123'),
-(4, 'Isaac', 'Bayle', 'Adjaluddin', 'isaac@gmail.com', 'IsaacRaddi', '123'),
-(5, 'edil khan', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123'),
-(6, 'admin', '', 'admin', 'admin@admin.com', 'admin', 'admin');
+INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`, `username`, `password`, `type`, `successful_lends`) VALUES
+(1, 'Jhon Laden', 'Bayle', 'Adjaluddin', 'jhonladen@yahoo.com', 'Jhon', '123', 'lender', 0),
+(4, 'Isaac', 'Bayle', 'Adjaluddin', 'isaac@gmail.com', 'IsaacRaddi', '123', 'client', 0),
+(5, 'edil khan', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123', 'client', 0),
+(6, 'admin', '', 'admin', 'admin@admin.com', 'admin', 'admin', 'admin', 0),
+(7, 'zac', 'b', 'bandahala', 'a@yahoo.com', 'a', '1', 'lender', 0);
 
 --
 -- Indexes for dumped tables
@@ -146,19 +133,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `rental_schedule`
 --
 ALTER TABLE `rental_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

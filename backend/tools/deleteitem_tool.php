@@ -7,9 +7,20 @@ session_start();
 if (isset($_POST['item_id'])) {
     $item_id = $_POST['item_id'];
     $item = new Item();
+    $message = [];
+    $link ;
+
+    if(isset($_POST['link'])){
+        $link= $_POST['link'];
+    }
 
     if ($item->delete_item($item_id)) {
-        echo 'success';
+        $message['title'] = "Item deleted!";
+        $message['success'] = "Record is now updated.";
+        $message['delete'] = true;
+        $_SESSION['message'] = $message;
+        header('location: '. $link);
+        exit();
     } else {
         echo 'error';
     }

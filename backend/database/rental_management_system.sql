@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 09:19 AM
+-- Generation Time: Nov 29, 2024 at 05:33 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -36,16 +36,22 @@ CREATE TABLE `item` (
   `rental_cost` decimal(11,2) DEFAULT NULL,
   `quantity` int(11) DEFAULT 0,
   `owner_id` int(11) DEFAULT NULL,
-  `in_stock` tinyint(1) DEFAULT 1
+  `in_stock` tinyint(1) DEFAULT 1,
+  `is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_cost`, `quantity`, `owner_id`, `in_stock`) VALUES
-(61, 'sdfsd34', 'suit', 234.00, 2342.00, 34.00, 1, 7, 1),
-(62, '3sdfsd', 'gown', 34.00, 3232.00, 324.00, 1, 7, 1);
+INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_cost`, `quantity`, `owner_id`, `in_stock`, `is_active`) VALUES
+(61, 'sdfsd34', 'suit', 234.00, 2342.00, 34.00, 1, 7, 1, 0),
+(62, '3sdfsd', 'gown', 34.00, 3232.00, 324.00, 1, 7, 1, 0),
+(63, 'asdf', 'gown', 34.00, 23432.00, 234.00, 1, 7, 1, 0),
+(64, 'sasf', 'gown', 234.00, 324.00, 32432.00, 1, 7, 0, 1),
+(65, '234', 'gown', 234.00, 234.00, 23432.00, 1, 7, 0, 1),
+(66, 'Jhon', 'gown', 324.00, 32432.00, 23432.00, 1, 7, 0, 1),
+(67, 'Jhon', 'gown', 32.00, 32.00, 324.00, 1, 7, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +74,38 @@ CREATE TABLE `rental_schedule` (
 --
 
 INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`, `status`) VALUES
-(32, '2024-11-28', '2024-11-30', 4, 7, 61, 'pending');
+(32, '2024-11-28', '2024-11-30', 4, 7, 61, 'canceled'),
+(33, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
+(34, '2024-11-30', '2024-12-01', 7, 7, 63, 'canceled'),
+(35, '2024-11-29', '2024-11-30', 7, 7, 63, 'canceled'),
+(36, '2024-11-28', '2024-12-01', 7, 7, 64, 'canceled'),
+(37, '2024-11-28', '2024-11-30', 7, 7, 64, 'canceled'),
+(38, '2024-11-28', '2024-11-23', 7, 7, 67, 'canceled'),
+(39, '2024-11-29', '2024-11-30', 7, 7, 67, 'rented'),
+(40, '2024-12-01', '2024-11-30', 7, 7, 67, 'pending'),
+(41, '2024-11-29', '2024-11-30', 7, 7, 64, 'pending'),
+(42, '2024-11-29', '2024-11-30', 7, 7, 67, 'canceled'),
+(43, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
+(44, '2024-11-28', '2024-11-29', 7, 7, 65, 'canceled'),
+(45, '2024-11-28', '2024-11-28', 7, 7, 65, 'canceled'),
+(46, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
+(47, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
+(48, '2024-11-29', '2024-11-30', 7, 7, 65, 'rented'),
+(49, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
+(50, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
+(51, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
+(52, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
+(53, '2024-11-28', '2024-11-29', 7, 7, 65, 'pending'),
+(54, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
+(55, '2024-11-28', '2024-11-28', 7, 7, 66, 'pending'),
+(56, '2024-11-29', '2024-11-30', 7, 7, 66, 'pending'),
+(57, '2024-11-30', '2024-12-01', 7, 7, 66, 'pending'),
+(58, '2024-11-30', '2024-12-01', 7, 7, 66, 'pending'),
+(59, '2024-11-29', '2024-11-22', 7, 7, 66, 'pending'),
+(60, '2024-11-29', '2024-11-30', 7, 7, 66, 'pending'),
+(61, '2024-11-29', '2024-11-30', 7, 7, 66, 'pending'),
+(62, '2024-11-29', '2024-11-30', 7, 7, 67, 'pending'),
+(63, '2024-11-29', '2024-11-30', 7, 7, 64, 'pending');
 
 -- --------------------------------------------------------
 
@@ -133,13 +170,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `rental_schedule`
 --
 ALTER TABLE `rental_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `user`

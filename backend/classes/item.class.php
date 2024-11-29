@@ -142,13 +142,28 @@ class Item{
     }
 
     function delete_item($item_id) {
-        $sql = "DELETE FROM item WHERE item_id = :item_id";
+        $sql = "UPDATE item 
+        SET is_active = false
+        WHERE item_id = :item_id";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':item_id', $item_id);
         
         return $query->execute();
     }
-    
+
+    function update_item_status($value) {
+        $sql = "UPDATE item 
+        SET in_stock = :value
+        WHERE item_id = :item_id;";
+
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':item_id', $this->id);
+        $query->bindParam(':value', $value);
+
+        
+        return $query->execute();
+    }
+
 
 }
 

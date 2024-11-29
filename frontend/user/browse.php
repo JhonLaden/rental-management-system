@@ -35,7 +35,9 @@
                 // Loop for each record found in the array
                 foreach ($item->show_items() as $value) { // Start of loop
                     // Determine the image based on the item type
+                    if($value['is_active'] == '1'){
                     $image = $value['type'] === 'gown' ? "../assets/images/gown1.jpeg" : "../assets/images/suit2.jpeg";
+
                 ?>
                     <a class="col-md-3 text-decoration-none" href="item_details.php?item_id=<?php echo $value['item_id']; ?>">
 
@@ -51,7 +53,8 @@
                         </div>
                     </a>
 
-                    <?php } // End of loop ?>
+                    <?php }
+                } // End of loop ?>
                 </div>
             </div>
         </section>

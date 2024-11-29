@@ -9,6 +9,7 @@
         $logged_user = $_SESSION['loggeduser'];
         $schedule = new Schedule();
         $item = new Item();
+        $link = htmlentities($_POST['link']);
 
 
 
@@ -20,6 +21,7 @@
             $item_id = htmlentities($_POST['item_id'] ?? '');
     
             $item->id = $item_id; 
+            $item->status = false;
             $selected_item = $item->search_item()[0];
             
             $schedule->start_date = $start_date;
@@ -27,11 +29,15 @@
             $schedule->borrower_id = $borrower_id;
             $schedule->lender_id = $lender_id;
             $schedule->item_id = $item_id;
-            
-            echo $schedule->borrower_id;
-            echo $schedule->lender_id;
-            if ($schedule->add_schedule()) {
-                    echo 'success';
+
+            if ($schedule->add_schedule() ) {
+                $message['add_schedule'] = true;
+                $message['title'] = "Reserve Item Successfully!";
+                $message['success'] = "Record is now updated."; 
+                $_SESSION['message'] = $message;
+                
+                header('location: '. $link);
+                exit();
             }
         }else {
             echo 'Something went wrong';

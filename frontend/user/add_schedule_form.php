@@ -20,7 +20,6 @@
         $item->id = $item_id;
         $selected_item = $item->search_item()[0];
 
-        $_SESSION['item_id'] = $item_id;
     }
 ?>
         
@@ -33,7 +32,9 @@
                 <input type="hidden" name = "lender_id" value = "<?php echo $_GET['lender_id'] ?>">
                 <input type="hidden" name = "item_id" value = "<?php echo $selected_item['item_id'] ?>">
 
-                <input type="hidden" name = "add_schedule_form" value = "true" ?>>
+                <input type="hidden" name = "add_schedule_form" value = "true" ?>
+                <input type="hidden" name = "link" value = "../../frontend/user/item_details.php?item_id=<?php echo $selected_item['item_id'] ?>" ?>
+
 
                 <div class="mb-3">
                     <label for="inputRentalStart" class="form-label">Rental Start Date</label>

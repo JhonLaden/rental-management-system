@@ -39,6 +39,7 @@
                     if (!empty($results)) {
                         $i = 1;
                         foreach ($results as $value) {
+                            if($value['is_active'] == true){
                 ?>
                 <tr>
                     <td><?php echo $i; ?></td>
@@ -76,7 +77,7 @@
 
                 </tr>
                 <?php
-                            $i++;
+                            $i++;}
                         }
                     } else {
                 ?>

@@ -72,7 +72,24 @@
 
         include('../includes/scripts.php');
       ?>
-    <script src = "../js/addschedule.js"></script>
+    <script>
+        <?php 
+                if(isset($_SESSION['message'])){
+                    $message = $_SESSION['message'];
+                    unset($_SESSION['message']);
+
+                    if(isset($message['add_schedule']) ){
+                ?>
+                            Swal.fire({
+                            title: "<?php echo $message['title'] ?>",
+                            text: "<?php echo $message['success'] ?>",
+                            icon: "success"
+                        });
+            <?php
+                    }
+                }
+            ?>
+    </script>
 
 <?php
     require '../includes/footer.php';

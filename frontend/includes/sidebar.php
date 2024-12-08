@@ -22,6 +22,11 @@
           </a>
         </li>
         <li>
+          <a href="../admin/manage_schedules.php" class="<?php echo $schedules; ?> nav-link text-light">
+            Manage Schedules
+          </a>
+        </li>
+        <li>
           <a href="../admin/invoice.php" class="<?php echo $invoice ?> nav-link text-light">
             Invoice
           </a>

@@ -12,6 +12,14 @@ if (isset($_POST) && isset($_POST['update'])) {
 
     $schedule->id = htmlentities($_POST['schedule_id']);
     $schedule->status = htmlentities($_POST['update']);
+    if($schedule->status == 'finished' || $schedule->status == 'canceled' ){
+        $item->id = $_POST['item_id'];
+        if(!$item->update_item_status(true)){
+            echo 'failed';
+            exit();
+        }
+        
+    }
     $link = htmlentities($_POST['link']);
 
    if($schedule->update_status()){

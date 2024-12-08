@@ -4,7 +4,12 @@
             require '../includes/header.php';
         ?>
         
-        
+        <?php
+            if(isset($_SESSION['loggeduser'])){
+                header('location: ../user/browse.php');
+
+            }
+        ?>
 
         <div class="position-absolute top-0 h-100 w-100 overflow-hidden " style = "z-index: -1 ;">
             <img src="../assets/images/suitandgown.jpeg" alt="" class="img-fluid cover">

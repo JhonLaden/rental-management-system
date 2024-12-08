@@ -8,6 +8,9 @@
     $users = new Users();
     if(isset($_SESSION['loggeduser'])){
         $logged_user = $_SESSION['loggeduser'];
+        if($logged_user['type'] == 'admin'){
+            header('location: ../admin/dashboard.php');
+        }
     }
 
     $accounts = $users->show();

@@ -43,21 +43,55 @@ class Item{
             false;
         }
     }
-
+    function show($user_id = null) {
+        // Base SQL query
+        $sql = "SELECT * FROM item";
     
-
-    function show($user_id){
-        $sql = "SELECT * FROM item 
-        WHERE owner_id = :id";
-        $query =  $this->db->connect()->prepare($sql);
-        $query->bindParam(':id', $user_id);
-
+        // Add a WHERE clause if user_id is provided
+        if ($user_id) {
+            $sql .= " WHERE owner_id = :id";
+        }
     
-        if($query->execute()){
+        // Prepare the query
+        $query = $this->db->connect()->prepare($sql);
+    
+        // Bind the parameter if user_id is provided
+        if ($user_id) {
+            $query->bindParam(':id', $user_id);
+        }
+    
+        // Execute and fetch data
+        if ($query->execute()) {
             $data = $query->fetchAll();
         }
+    
+        // Return the data
         return $data;
-        
+    }
+
+    function countInStock($user_id = null) {
+        // Base SQL query with the in_stock condition
+        $sql = "SELECT COUNT(*) FROM item WHERE in_stock = 1";
+    
+        // Add a WHERE clause for the user_id if provided
+        if ($user_id) {
+            $sql .= " AND owner_id = :id";
+        }
+    
+        // Prepare the query
+        $query = $this->db->connect()->prepare($sql);
+    
+        // Bind the parameter if user_id is provided
+        if ($user_id) {
+            $query->bindParam(':id', $user_id);
+        }
+    
+        // Execute and fetch the result
+        $query->execute();
+        $count = $query->fetchColumn(); // Fetch the count result
+    
+        // Return the count
+        return $count;
     }
 
     function show_items(){
@@ -164,6 +198,33 @@ class Item{
         return $query->execute();
     }
 
+    // Function to get the item cost
+    public function get_item_cost() {
+        // SQL query to get the cost for the item based on its ID
+        $sql = "SELECT rental_cost FROM item WHERE item_id = :id LIMIT 1";
+        
+        // Prepare and execute the query
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':id', $this->id);
+        
+        // Execute the query
+        if ($query->execute()) {
+            // Fetch the result
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            
+            // Return the cost per day if available
+            if ($result) {
+                return $result['rental_cost'];
+            } else {
+                // If item not found, return 0 or handle it as needed
+                return 0;
+            }
+        } else {
+            // If the query fails, handle the error (e.g., return 0)
+            return 0;
+        }
+    }
+    
 
 }
 

@@ -4,7 +4,7 @@
     require '../includes/header.php';
 
 
-    if(isset($_SESSION['user_id'])){
+    if(isset($_SESSION['logged_user'])){
         if($_SESSION['user_id'] == 6){
             header('location: ../admin/dashboard.php');
         }

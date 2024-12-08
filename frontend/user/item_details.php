@@ -7,6 +7,11 @@
 
     require_once '../../backend/classes/item.class.php';
 
+    if(isset($_SESSION['loggeduser'])){
+        $logged_user = $_SESSION['loggeduser'];
+    }else{
+        header('location: ../../');
+    }
 
     $item = new Item();
 
@@ -17,6 +22,10 @@
 
         $_SESSION['item_id'] = $item_id;
     }
+ 
+   
+    
+    
 ?>
         
     <div class = 'container d-flex mt-5 '>
@@ -56,13 +65,21 @@
 
                 </div>
             </div>
-            <div class = "text-center">
-                <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id']. "&lender_id=".$selected_item['owner_id']; ?>">
-                    <button type="submit" class="btn btn-primary">
-                        Rent Item
-                    </button>
-                </a>
-            </div>
+            <?php
+                if($selected_item['in_stock'] == true && $logged_user['type'] == 'client'){
+                    ?>
+                <div class = "text-center">
+                    <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id']. "&lender_id=".$selected_item['owner_id']; ?>">
+                        <button type="submit" class="btn btn-primary">
+                            Rent Item
+                        </button>
+                    </a>
+                </div>
+
+            <?php
+
+                }
+            ?>
 
 
         </div>

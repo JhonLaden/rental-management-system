@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2024 at 05:33 AM
+-- Generation Time: Dec 08, 2024 at 04:37 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,9 +48,9 @@ INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_c
 (61, 'sdfsd34', 'suit', 234.00, 2342.00, 34.00, 1, 7, 1, 0),
 (62, '3sdfsd', 'gown', 34.00, 3232.00, 324.00, 1, 7, 1, 0),
 (63, 'asdf', 'gown', 34.00, 23432.00, 234.00, 1, 7, 1, 0),
-(64, 'sasf', 'gown', 234.00, 324.00, 32432.00, 1, 7, 0, 1),
-(65, '234', 'gown', 234.00, 234.00, 23432.00, 1, 7, 0, 1),
-(66, 'Jhon', 'gown', 324.00, 32432.00, 23432.00, 1, 7, 0, 1),
+(64, 'sasf', 'gown', 234.00, 324.00, 32432.00, 1, 7, 1, 1),
+(65, '234', 'gown', 234.00, 234.00, 23432.00, 1, 7, 1, 1),
+(66, 'Jhon', 'gown', 324.00, 32432.00, 23432.00, 1, 7, 1, 1),
 (67, 'Jhon', 'gown', 32.00, 32.00, 324.00, 1, 7, 0, 1);
 
 -- --------------------------------------------------------
@@ -66,46 +66,41 @@ CREATE TABLE `rental_schedule` (
   `borrower_id` int(11) DEFAULT NULL,
   `lender_id` int(11) DEFAULT NULL,
   `item_id` int(11) DEFAULT NULL,
-  `status` varchar(255) DEFAULT 'pending'
+  `status` enum('pending','rented','canceled','overdue','finished') DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `cost` decimal(11,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rental_schedule`
 --
 
-INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`, `status`) VALUES
-(32, '2024-11-28', '2024-11-30', 4, 7, 61, 'canceled'),
-(33, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
-(34, '2024-11-30', '2024-12-01', 7, 7, 63, 'canceled'),
-(35, '2024-11-29', '2024-11-30', 7, 7, 63, 'canceled'),
-(36, '2024-11-28', '2024-12-01', 7, 7, 64, 'canceled'),
-(37, '2024-11-28', '2024-11-30', 7, 7, 64, 'canceled'),
-(38, '2024-11-28', '2024-11-23', 7, 7, 67, 'canceled'),
-(39, '2024-11-29', '2024-11-30', 7, 7, 67, 'rented'),
-(40, '2024-12-01', '2024-11-30', 7, 7, 67, 'pending'),
-(41, '2024-11-29', '2024-11-30', 7, 7, 64, 'pending'),
-(42, '2024-11-29', '2024-11-30', 7, 7, 67, 'canceled'),
-(43, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
-(44, '2024-11-28', '2024-11-29', 7, 7, 65, 'canceled'),
-(45, '2024-11-28', '2024-11-28', 7, 7, 65, 'canceled'),
-(46, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
-(47, '2024-11-29', '2024-11-30', 7, 7, 65, 'canceled'),
-(48, '2024-11-29', '2024-11-30', 7, 7, 65, 'rented'),
-(49, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
-(50, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
-(51, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
-(52, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
-(53, '2024-11-28', '2024-11-29', 7, 7, 65, 'pending'),
-(54, '2024-11-29', '2024-11-30', 7, 7, 65, 'pending'),
-(55, '2024-11-28', '2024-11-28', 7, 7, 66, 'pending'),
-(56, '2024-11-29', '2024-11-30', 7, 7, 66, 'pending'),
-(57, '2024-11-30', '2024-12-01', 7, 7, 66, 'pending'),
-(58, '2024-11-30', '2024-12-01', 7, 7, 66, 'pending'),
-(59, '2024-11-29', '2024-11-22', 7, 7, 66, 'pending'),
-(60, '2024-11-29', '2024-11-30', 7, 7, 66, 'pending'),
-(61, '2024-11-29', '2024-11-30', 7, 7, 66, 'pending'),
-(62, '2024-11-29', '2024-11-30', 7, 7, 67, 'pending'),
-(63, '2024-11-29', '2024-11-30', 7, 7, 64, 'pending');
+INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`, `status`, `created_at`, `cost`) VALUES
+(82, '2024-12-09', '2024-12-19', 4, 7, 67, 'canceled', '2024-12-08 05:45:26', 3240.00),
+(83, '2024-12-09', '2024-12-10', 4, 7, 64, 'finished', '2024-12-08 05:46:22', 32432.00),
+(84, '2024-12-09', '2024-12-11', 4, 7, 67, 'rented', '2024-12-08 10:55:30', 648.00);
+
+--
+-- Triggers `rental_schedule`
+--
+DELIMITER $$
+CREATE TRIGGER `update_status_to_overdue` BEFORE UPDATE ON `rental_schedule` FOR EACH ROW BEGIN
+    IF OLD.status = 'rented' AND NEW.return_date < CURDATE() THEN
+        SET NEW.status = 'overdue';
+    END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trigger_debug`
+--
+
+CREATE TABLE `trigger_debug` (
+  `debug_message` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -176,7 +171,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `rental_schedule`
 --
 ALTER TABLE `rental_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `user`

@@ -16,5 +16,4 @@
     <body class = "bg-dark" >
         <?php
             require_once '../variables.php';
-            var_dump($dashboard);
         ?>

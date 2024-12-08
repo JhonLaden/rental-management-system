@@ -47,6 +47,12 @@
                     <div class="col-6">
                         <h5>Item Information</h5>
                         <p><strong>Item ID:</strong> <span id="item_id"><?php echo $selected_schedule['item_id'] ?></span></p>
+                        <p><strong>Photo:</strong></p>
+                        <?php if (!empty($selected_schedule['photo'])): ?>
+                            <img src="../assets/uploads/<?php echo $selected_schedule['photo']; ?>" alt="Item Photo" class="img-fluid rounded shadow-sm" style="max-width: 200px;">
+                        <?php else: ?>
+                            <p class="text-muted">No photo available</p>
+                        <?php endif; ?>
                     </div>
                     <div class="col-6">
                         <h5>Rental Period</h5>
@@ -55,7 +61,7 @@
                                 <?php 
                                     $date = new DateTime($selected_schedule['start_date']);
                                     echo $date->format('F j, Y');
-                                 ?>
+                                ?>
                             </span>
                         </p>
                         <p><strong>Return Date:</strong> 
@@ -63,8 +69,7 @@
                             <?php 
                                 $date = new DateTime($selected_schedule['return_date']);
                                 echo $date->format('F j, Y');
-                                ?>
-
+                            ?>
                         </span></p>
                     </div>
                 </div>

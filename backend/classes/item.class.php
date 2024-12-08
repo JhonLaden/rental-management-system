@@ -13,6 +13,9 @@ class Item{
     public $rental_cost;
     public $quantity;
     public $owner;
+    public $photo;
+    public $description;
+
 
 
     protected $db ;
@@ -22,27 +25,23 @@ class Item{
     }
 
     //Methods
-    function add_item(){
-        $sql = "INSERT INTO item (name, type, size,  deposit_cost, rental_cost, quantity, owner_id) VALUE 
-        (:name, :type, :size, :deposit_cost, :rental_cost, :quantity, :owner_id);";
-
+    function add_item() {
+        $sql = "INSERT INTO item (name, type, size, deposit_cost, rental_cost, description,  owner_id, photo) 
+                VALUES (:name, :type, :size, :deposit_cost, :rental_cost, :description,  :owner_id, :photo)";
+    
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':name', $this->name);
         $query->bindParam(':type', $this->type);
         $query->bindParam(':size', $this->size);
         $query->bindParam(':deposit_cost', $this->deposit_cost);
         $query->bindParam(':rental_cost', $this->rental_cost);
-        $query->bindParam(':quantity', $this->quantity);
+        $query->bindParam(':description', $this->description);
         $query->bindParam(':owner_id', $this->owner_id);
-
-
-
-        if($query->execute()){
-            return true;
-        }else{
-            false;
-        }
+        $query->bindParam(':photo', $this->photo);
+    
+        return $query->execute();
     }
+    
     function show($user_id = null) {
         // Base SQL query
         $sql = "SELECT * FROM item";

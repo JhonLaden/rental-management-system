@@ -28,62 +28,72 @@
     
 ?>
         
-    <div class = 'container d-flex mt-5 '>
-        <!-- 1st container -->
-        <div class = "col-8 ">
+        <div class="container mt-5">
+    <div class="row">
+        <!-- Image and Item Info Section -->
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm">
             <div class="text-center" style = "height:550px">
-                <img src="../assets/images/gown1.jpeg" class="img-fluid h-100 w-100"  alt="Gown" style = " object-fit: cover;" >
+                <img src="../assets/uploads/<?php echo $selected_item['photo'] ?>" class="img-fluid h-100 w-100"  alt="Gown" style = " object-fit: cover;" >
             </div>
-            <div class = "d-flex flex-column justify-content-center">
-                <p class = "m-0" >Name: <?php echo $selected_item['name'] ?></p>
-                <p class = "m-0">Size: <?php echo number_format($selected_item['size']); ?></p>
-                <p class = "m-0">Availability: <?php echo ($selected_item['in_stock']) ? 'In stock' : 'not available'; ?></p>
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize"><?php echo $selected_item['name']; ?></h5>
+                    <p class="card-text">
+                        Availability: 
+                        <span class="badge <?php echo ($selected_item['in_stock']) ? 'bg-success' : 'bg-danger'; ?>">
+                            <?php echo ($selected_item['in_stock']) ? 'In Stock' : 'Not Available'; ?>
+                        </span>
+                    </p>
+                    <p class="text-muted"><?php echo $selected_item['description'] ?></p>
+                </div>
             </div>
         </div>
-        <!-- 2nd container -->
-        <div class = "col-4 bg-light">
-            <div class = "text-center container p-4">
-                <p>Elevate your elegance with this Classic White Gown, designed for timeless beauty. Crafted from flowing chiffon, it features a fitted bodice with a sweetheart neckline and delicate embroidery.</p>
-            </div>
-            <div class = "text-center w-100  " style = "height: 200px; width: 150px"><img class = "h-100 rounded-3" src="../assets/images/user_profile.jpeg" alt="" style= "object-fit: cover;"></div>
-            <div class = "text-center pt-2">
-                <div>
-                    <p><?php echo $selected_item['username']?></p>
-                </div>
-                <div class = "fw-bold">
-                    <span class = " opacity-50"><?php echo $selected_item['successful_lends'] ?> successful lends</span>
-                </div>
-                <div class = "my-4 fw-bold text-success">
-                    <p class = "m-0">deposit fee: ₱ <?php echo number_format($selected_item['deposit_cost'],2);?></p>
-                    <p class = "m-0">Rental fee: ₱ <?php echo number_format($selected_item['rental_cost'],2);?></p>
-                </div>
-                <div class = "mb-3">
-                    <i class="bi bi-circle-fill text-primary"></i>
-                    <i class="bi bi-circle-fill text-success"></i>
-                    <i class="bi bi-circle-fill text-warning"></i>
-                    <i class="bi bi-circle-fill text-dark"></i>
 
+        <!-- User and Pricing Section -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body text-center">
+                    <img class="rounded-circle mb-3" src="../assets/images/user_profile.jpeg" alt="User Profile" style="width: 100px; height: 100px; object-fit: cover;">
+                    <h6><?php echo $selected_item['username']; ?></h6>
+                    <p class="text-muted"><?php echo $selected_item['successful_lends']; ?> Successful Lends</p>
                 </div>
             </div>
-            <?php
-                if($selected_item['in_stock'] == true && $logged_user['type'] == 'client'){
-                    ?>
-                <div class = "text-center">
-                    <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id']. "&lender_id=".$selected_item['owner_id']; ?>">
-                        <button type="submit" class="btn btn-primary">
-                            Rent Item
-                        </button>
-                    </a>
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-body text-center">
+                    <p class="fw-bold text-success mb-2">
+                        Deposit Fee: ₱ <?php echo number_format($selected_item['deposit_cost'], 2); ?>
+                    </p>
+                    <p class="fw-bold text-primary">
+                        Rental Fee: ₱ <?php echo number_format($selected_item['rental_cost'], 2); ?>
+                    </p>
                 </div>
+            </div>
 
-            <?php
-
-                }
-            ?>
-
-
+            <?php if ($selected_item['in_stock'] && $logged_user['type'] == 'client') { ?>
+            <div class="d-grid">
+                <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id'] . "&lender_id=" . $selected_item['owner_id']; ?>" class="btn btn-primary btn-lg">
+                    Rent Item
+                </a>
+            </div>
+            <?php } ?>
         </div>
     </div>
+</div>
+
+<script>
+    <?php if (isset($_SESSION['message'])) { 
+        $message = $_SESSION['message'];
+        unset($_SESSION['message']);
+    ?>
+    Swal.fire({
+        title: "<?php echo $message['title']; ?>",
+        text: "<?php echo $message['success']; ?>",
+        icon: "success"
+    });
+    <?php } ?>
+</script>
+
 
       <?php
 

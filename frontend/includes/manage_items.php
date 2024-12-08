@@ -88,32 +88,35 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Body Content -->
-                        <form action = "../../backend/tools/additem_tool.php" id="addItemForm" method = "POST">
+                        <form action="../../backend/tools/additem_tool.php" id="addItemForm" method="POST" enctype="multipart/form-data">
                             <?php
                                 if($logged_user['type'] == 'admin'){?>
-                                    <input type="hidden" name = "link" value = "../../frontend/admin/manage.php">
+                                    <input type="hidden" name="link" value="../../frontend/admin/manage.php">
                             <?php
-                                }else{?>
-                                    <input type="hidden" name = "link" value = "../../frontend/manage/manage.php">
+                                } else { ?>
+                                    <input type="hidden" name="link" value="../../frontend/manage/manage.php">
                             <?php
-
                                 }
                             ?>
                             <div class="mb-3">
                                 <label for="inputName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter item name" required >
+                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter item name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputType" class="form-label">Type</label>
-                                <select class="form-select" id="inputType" name="type"  required>
+                                <select class="form-select" id="inputType" name="type" required>
                                     <option value="" disabled selected>Select type</option>
                                     <option value="gown">Gown</option>
                                     <option value="suit">Suit</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="inputSize" class="form-label">Size</label>
-                                <input type="number" class="form-control" id="inputSize" name="size" placeholder="Enter size" required>
+                                <label for="inputPhoto" class="form-label">Photo</label>
+                                <input type="file" class="form-control" id="inputPhoto" name="photo" accept="image/*" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="inputDescription" name="description" placeholder="Enter item description" rows="3" required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="inputDepositCost" class="form-label">Deposit Cost</label>
@@ -127,9 +130,10 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" id="submitBtn" name = "add-item-submit">Add Item</button>
+                                <button type="submit" class="btn btn-primary" id="submitBtn" name="add-item-submit">Add Item</button>
                             </div>
                         </form>
+
                     </div>
                     
                 </div>

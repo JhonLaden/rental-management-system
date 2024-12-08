@@ -36,17 +36,16 @@
                 foreach ($item->show_items() as $value) { // Start of loop
                     // Determine the image based on the item type
                     if($value['is_active'] == '1'){
-                    $image = $value['type'] === 'gown' ? "../assets/images/gown1.jpeg" : "../assets/images/suit2.jpeg";
-
+                    $imgurl = "../assets/uploads/";
                 ?>
                     <a class="col-md-3 text-decoration-none" href="item_details.php?item_id=<?php echo $value['item_id']; ?>">
 
                         <div class="card mb-3">
                             <div style="height: 300px; width: 100%;">
-                                <img src="<?php echo $image; ?>" class="card-img-top img-fluid h-100" alt="<?php echo $value['name']; ?> Image" style="object-fit: cover;">
+                                <img src="<?php echo $imgurl.$value['photo']; ?>" class="card-img-top img-fluid h-100" alt="<?php echo $value['name']; ?> Image" style="object-fit: cover;">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title text-center"><?php echo $value['name']; ?></h5>
+                                <h5 class="card-title text-center text-capitalize"><?php echo $value['name']; ?></h5>
                                 <p class="card-text">Type: <?php echo $value['type']; ?></p>
                                 <p class="card-text">Rental Price: ₱ <?php echo number_format($value['rental_cost'], 2); ?></p>
                             </div>

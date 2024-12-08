@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2024 at 04:37 PM
+-- Generation Time: Dec 08, 2024 at 11:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -37,21 +37,29 @@ CREATE TABLE `item` (
   `quantity` int(11) DEFAULT 0,
   `owner_id` int(11) DEFAULT NULL,
   `in_stock` tinyint(1) DEFAULT 1,
-  `is_active` tinyint(1) DEFAULT 1
+  `is_active` tinyint(1) DEFAULT 1,
+  `photo` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_cost`, `quantity`, `owner_id`, `in_stock`, `is_active`) VALUES
-(61, 'sdfsd34', 'suit', 234.00, 2342.00, 34.00, 1, 7, 1, 0),
-(62, '3sdfsd', 'gown', 34.00, 3232.00, 324.00, 1, 7, 1, 0),
-(63, 'asdf', 'gown', 34.00, 23432.00, 234.00, 1, 7, 1, 0),
-(64, 'sasf', 'gown', 234.00, 324.00, 32432.00, 1, 7, 1, 1),
-(65, '234', 'gown', 234.00, 234.00, 23432.00, 1, 7, 1, 1),
-(66, 'Jhon', 'gown', 324.00, 32432.00, 23432.00, 1, 7, 1, 1),
-(67, 'Jhon', 'gown', 32.00, 32.00, 324.00, 1, 7, 0, 1);
+INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_cost`, `quantity`, `owner_id`, `in_stock`, `is_active`, `photo`, `description`) VALUES
+(61, 'sdfsd34', 'suit', 234.00, 2342.00, 34.00, 1, 7, 1, 0, '', ''),
+(62, '3sdfsd', 'gown', 34.00, 3232.00, 324.00, 1, 7, 1, 0, '', ''),
+(63, 'asdf', 'gown', 34.00, 23432.00, 234.00, 1, 7, 1, 0, '', ''),
+(64, 'sasf', 'gown', 234.00, 324.00, 32432.00, 1, 7, 1, 0, '', ''),
+(65, '234', 'gown', 234.00, 234.00, 23432.00, 1, 7, 1, 0, '', ''),
+(66, 'Jhon', 'gown', 324.00, 32432.00, 23432.00, 1, 7, 1, 0, '', ''),
+(67, 'Jhon', 'gown', 32.00, 32.00, 324.00, 1, 7, 1, 0, '', ''),
+(68, 'another item', 'gown', 21.00, 23.00, 20.00, 1, 6, 1, 0, '', ''),
+(69, 'Hikoo', 'suit', 32.00, 23.00, 43.00, 1, 6, 0, 0, '', ''),
+(70, 'hgaha', 'suit', NULL, 32.00, 23.00, 0, 7, 1, 0, 'dumb&toopid.png', ''),
+(71, 'White Gown', 'gown', NULL, 200.00, 250.00, 0, 7, 1, 1, 'gown1.jpeg', ''),
+(72, 'black suit', 'suit', NULL, 200.00, 250.00, 0, 7, 1, 1, 'suit4.jpeg', ''),
+(73, 'red suit', 'suit', NULL, 250.00, 300.00, 0, 7, 1, 1, 'suit1.jpeg', 'testing description');
 
 -- --------------------------------------------------------
 
@@ -78,7 +86,10 @@ CREATE TABLE `rental_schedule` (
 INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`, `status`, `created_at`, `cost`) VALUES
 (82, '2024-12-09', '2024-12-19', 4, 7, 67, 'canceled', '2024-12-08 05:45:26', 3240.00),
 (83, '2024-12-09', '2024-12-10', 4, 7, 64, 'finished', '2024-12-08 05:46:22', 32432.00),
-(84, '2024-12-09', '2024-12-11', 4, 7, 67, 'rented', '2024-12-08 10:55:30', 648.00);
+(84, '2024-12-09', '2024-12-11', 4, 7, 67, 'finished', '2024-12-08 10:55:30', 648.00),
+(85, '2024-12-10', '2024-12-12', 4, 6, 69, 'pending', '2024-12-08 17:33:52', 86.00),
+(86, '2024-12-10', '2024-12-11', 4, 7, 70, 'canceled', '2024-12-08 21:44:03', 23.00),
+(87, '2024-12-10', '2024-12-12', 4, 7, 70, 'canceled', '2024-12-08 21:49:47', 46.00);
 
 --
 -- Triggers `rental_schedule`
@@ -165,13 +176,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `rental_schedule`
 --
 ALTER TABLE `rental_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `user`

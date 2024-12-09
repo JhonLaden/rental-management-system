@@ -18,6 +18,7 @@ $description = htmlentities($_POST['description'] ?? '');
 $link = htmlentities($_POST['link'] ?? '');
 $imgurl = htmlentities($_POST['imgurl'] ?? ''); // Get the hidden input value
 
+
 // Initialize photo variable
 $photo = $_FILES['photo'] ?? null;
 
@@ -77,6 +78,7 @@ if (!empty($item_id) && !empty($name) && !empty($type) && !empty($deposit_cost) 
         exit();
     } else {
         echo 'Something went wrong';  // Handle any errors during the update process
+       
     }
 } else {
     echo 'All input fields are required';  // Return error if validation fails

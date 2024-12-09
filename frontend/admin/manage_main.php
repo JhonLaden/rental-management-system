@@ -2,7 +2,6 @@
 
     <?php
         include('../includes/manage_items.php');
-        include('../manage/manage_script.php');
     ?>
     <?php
      include_once('../includes/scripts.php');

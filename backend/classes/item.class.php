@@ -160,7 +160,7 @@ class Item{
         // SQL query to update the item
         $sql = "UPDATE item 
                 SET name = :name, type = :type, photo = :photo, description = :description, deposit_cost = :deposit_cost, rental_cost = :rental_cost
-                WHERE item_id = :id AND owner_id = :owner_id";
+                WHERE item_id = :id ;";
     
         // Prepare the query
         $query = $this->db->connect()->prepare($sql);
@@ -173,7 +173,6 @@ class Item{
         $query->bindParam(':deposit_cost', $this->deposit_cost);
         $query->bindParam(':rental_cost', $this->rental_cost);
         $query->bindParam(':id', $this->id);
-        $query->bindParam(':owner_id', $this->owner_id);
     
         // Execute and return the result
         return $query->execute();

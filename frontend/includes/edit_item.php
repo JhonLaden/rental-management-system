@@ -23,7 +23,7 @@
         <div class="card-body">
             <form action="../../backend/tools/edititem_tool.php" id="editItemForm" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="item_id" value="<?php echo $value['item_id']; ?>">
-                <input type="hidden" name="link" value="<?php echo ($logged_user['type'] == 'admin') ? '../../frontend/admin/manage.php' : '../../frontend/manage/edit_item.php'; ?>">
+                <input type="hidden" name="link" value="<?php echo ($logged_user['type'] == 'admin') ? '../../frontend/admin/edit_item.php' : '../../frontend/manage/edit_item.php'; ?>">
 
                 <!-- Item Name -->
                 <div class="mb-3">

@@ -31,7 +31,16 @@
                     <td><?php echo "₱ " . htmlspecialchars($value['rental_cost']); ?></td>
                     <td><?php echo "₱ " . htmlspecialchars($value['deposit_cost']); ?></td>
                     <td class="text-center d-flex justify-content-center gap-2">
-                        <form action = "../manage/edit_item.php" method = "POST">
+                        <?php
+                            if($logged_user['type'] == 'admin'){?>
+                            <form action = "../admin/edit_item.php" method = "POST">
+                        <?php
+                            }else{?>
+                                <form action = "../manage/edit_item.php" method = "POST">
+                        <?php
+                            }
+
+                        ?>
                             <input type="hidden" name = "item_id" value = "<?php echo $value['item_id'] ?>">
                             <input type="hidden" name = "link" value = "../manage/manage.php">
 

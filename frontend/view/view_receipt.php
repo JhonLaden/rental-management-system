@@ -12,7 +12,7 @@
                 header('location: ../../');
             }
             
-            if(isset($_POST['view_btn']) ){
+            if(isset($_POST['view_btn']) ){ 
                 $schedule_id = $_POST['schedule_id'];
             }else{
                 header('location: ../../');

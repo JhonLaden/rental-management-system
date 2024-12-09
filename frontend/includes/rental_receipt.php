@@ -42,6 +42,7 @@
                             <p><strong>Borrower Name:</strong> 
                                 <span id="borrower_name">
                                     <?php 
+                                       
                                         $user = new Users();
                                         $user->id = $selected_schedule['borrower_id'];
                                         $borrower = $user->get_user_by_id();

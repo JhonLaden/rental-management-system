@@ -12,6 +12,8 @@
         $email = htmlentities($_POST['email']);
         $username = htmlentities($_POST['username']);
         $password = htmlentities($_POST['password']);
+        $type = htmlentities($_POST['type']);
+
 
         
         if(!empty($firstname) && !empty($lastname) && !empty($email) && !empty($password)){
@@ -25,13 +27,20 @@
                     $user->last_name = $lastname;
                     $user->username = $username;
                     $user->password = $password;
+                    $user->type = $type;
+
 
                     if ($user->add_user()) {
                         $emails = $user->show_email();
                         if (!empty($emails)) {
                             $row = $emails[0]; // Assuming you only need the first row
                             $_SESSION['user_id'] = $row['user_id'];
-                            echo 'success';
+                            if($_POST['user_type'] == 'admin'){
+                                echo 'admin';
+                            }else{
+
+                                echo 'success';
+                            }
                         } else {
                             echo 'email is empty';
                         }

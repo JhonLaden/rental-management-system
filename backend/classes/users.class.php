@@ -12,6 +12,8 @@ class Users{
     public $email;
     public $username;
     public $password;
+    public $type = 'client';
+
 
     protected $db ;
 
@@ -21,8 +23,8 @@ class Users{
 
     //Methods
     function add_user(){
-        $sql = "INSERT INTO user (first_name, middle_name, last_name,  email, username, password) VALUE 
-        (:first_name, :middle_name, :last_name, :email, :username, :password);";
+        $sql = "INSERT INTO user (first_name, middle_name, last_name,  email, username, password, type) VALUE 
+        (:first_name, :middle_name, :last_name, :email, :username, :password, :type);";
 
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':first_name', $this->first_name);
@@ -31,6 +33,8 @@ class Users{
         $query->bindParam(':email', $this->email);
         $query->bindParam(':username', $this->username);
         $query->bindParam(':password', $this->password);
+        $query->bindParam(':type', $this->type);
+
 
         if($query->execute()){
             return true;

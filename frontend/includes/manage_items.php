@@ -51,7 +51,19 @@
                         
                         <form action="../../backend/tools/deleteitem_tool.php" method="POST" id="deleteForm-<?php echo $value['item_id']; ?>">
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="link" value="../../frontend/manage/manage.php">
+                            <?php
+                                if($logged_user['type'] == 'admin'){?>
+                                    <input type="hidden" name="link" value="../../frontend/admin/manage.php">
+
+                            <?php
+
+                                }else{?>
+                                <input type="hidden" name="link" value="../../frontend/manage/manage.php">
+                            
+                            <?php
+
+                                }
+                            ?>
                             <input type="hidden" name="item_id" value="<?php echo $value['item_id']; ?>">
 
                             <button type="button" class="btn btn-danger delete-item-btn" data-form-id="deleteForm-<?php echo $value['item_id']; ?>">

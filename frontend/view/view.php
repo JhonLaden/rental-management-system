@@ -70,10 +70,7 @@
                         <?php
                             $currentDate = new DateTime(); // Current date and time
                             if($value['return_date'] > $currentDate){
-
                             }
-
-                        
                             if($value['status'] == 'pending' && ($logged_user['user_id'] == $value['lender_id'])){?>
                                 <form action="../../backend/tools/updateSchedule.php?item_id=<?php echo $value['item_id'] ?>"  method = "POST">
                                 <input type="hidden" name = "item_id" value = "<?php echo $value['item_id'] ?>" >

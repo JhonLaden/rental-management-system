@@ -63,69 +63,70 @@
         </table>
 
         <div class = "d-flex justify-content-end mt-3">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
-            <i class="bi bi-upload"></i> Add Item
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+            <i class="bi bi-upload"></i> Add User
             </button>
         </div>
        
-
-        <!-- add item Modal -->
-        <div class="modal fade add-item-modal" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <!-- Register modal -->
+        <div class="modal fade signup-modal" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Modal Body Content -->
-                        <form action = "../../backend/tools/additem_tool.php" id="addItemForm" method = "POST">
-                            <?php
-                                if($logged_user['type'] == 'admin'){?>
-                                    <input type="hidden" name = "link" value = "../../frontend/admin/manage.php">
-                            <?php
-                                }else{?>
-                                    <input type="hidden" name = "link" value = "../../frontend/manage/manage.php">
-                            <?php
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Registration Form Here -->
+                    <form method = "POST" >
+                        <input type="hidden" name = "user_type" value = "admin">
+                        <input type="hidden" name = "link" value = "../../frontend/admin/manage_account.php">
 
-                                }
-                            ?>
-                            <div class="mb-3">
-                                <label for="inputName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter item name" required >
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputType" class="form-label">Type</label>
-                                <select class="form-select" id="inputType" name="type"  required>
-                                    <option value="" disabled selected>Select type</option>
-                                    <option value="gown">Gown</option>
-                                    <option value="suit">Suit</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputSize" class="form-label">Size</label>
-                                <input type="number" class="form-control" id="inputSize" name="size" placeholder="Enter size" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputDepositCost" class="form-label">Deposit Cost</label>
-                                <input type="number" class="form-control" id="inputDepositCost" name="deposit_cost" placeholder="Enter deposit cost" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputRentalCost" class="form-label">Rental Cost</label>
-                                <input type="number" class="form-control" id="inputRentalCost" name="rental_cost" placeholder="Enter rental cost" required>
-                            </div>
-                            <div class="error-text text-danger text-center" style="display: none;"></div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" id="submitBtn" name = "add-item-submit">Add Item</button>
-                            </div>
-                        </form>
+                        <div class="mb-3">
+                            <label for="editType" class="form-label">Type</label>
+                            <select class="form-select" name="type" required>
+                                <option value="" selected>Select type</option>
+                                <option value="lender" >lender</option>
+                                <option value="client" >client</option>
+                            </select>
+                        </div>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label" >First Name</label>
+                        <input type="text" class="form-control" id="firstName" name = "firstname" placeholder="Jhon" >
                     </div>
-                    
+                    <div class="mb-3">
+                        <label for="middleName" class="form-label">Middle Name (optional)</label>
+                        <input type="text" class="form-control" id="middleName " name = "middlename" placeholder="Bayle">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name = "lastname"  placeholder="Adjaluddin" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name = "email" placeholder="name@example.com" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name = "username"  placeholder="Username" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name = "password"  placeholder="Password" >
+                    </div>
+
+                    <p class = "error-text text-center text-danger"></p>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-dark" name = "signup-submit" value = "Add User"></input>
+                    </div>
+                    </form>
+                </div>
+                
                 </div>
             </div>
-        </div>
+            <script src = "../js/signup.js"></script>
 
             <!-- Edit Item Modal -->
             <div class="modal fade edit-item-modal" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">

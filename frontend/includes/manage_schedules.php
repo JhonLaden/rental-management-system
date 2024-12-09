@@ -38,7 +38,16 @@
                     <td class = "text-capitalize"> <?php echo $value['status'] ?></td>
 
                     <td class="text-center d-flex justify-content-center gap-2 align-items-center">
-                        <form action="../view/view_receipt.php"  method = "POST">
+                        <?php
+                            if($logged_user['type'] == 'admin'){?>
+                                <form action="../admin/view_receipt.php"  method = "POST">
+                        <?php
+                            }else{?>
+                                <form action="../view/view_receipt.php"  method = "POST">
+                        <?php
+
+                            }
+                        ?>
                             <input type="hidden" name = "item_id" value = "<?php echo $value['item_id'] ?>" >
                             <input type="hidden" name = "schedule_id" value = "<?php echo $value['schedule_id']; ?>" >
                             <input type="hidden" name = "link" value = "../../frontend/view/view.php" >

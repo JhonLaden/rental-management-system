@@ -22,27 +22,31 @@
             }
         ?>
         // Attach click event to the delete button
-        $('.delete-item-btn').click(function(e) {
-            e.preventDefault(); // Prevent the form from submitting immediately
+        // Handle delete button click
+    $('.delete-item-btn').click(function(e) {
+        e.preventDefault(); // Prevent the default behavior
 
-            // Show SweetAlert2 confirmation dialog
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "This action cannot be undone!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: "crimson",
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // If confirmed, submit the form
-                    $('#deleteForm').submit();
-                }
-            });
+        // Get the ID of the form to be submitted
+        const formId = $(this).data('form-id');
+        const formSelector = `#${formId}`;
+
+        // Show SweetAlert confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: "crimson",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the correct form
+                $(formSelector).submit();
+            }
         });
-
+    });
 
         
         });

@@ -40,14 +40,12 @@
                             </button>
                         </form>
                         
-                        <form action="../../backend/tools/deleteitem_tool.php" method="POST" id = "deleteForm">
-                            <!-- Hidden input for delete action -->
+                        <form action="../../backend/tools/deleteitem_tool.php" method="POST" id="deleteForm-<?php echo $value['item_id']; ?>">
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name ="link" value = "../../frontend/manage/manage.php">
-                            <input type="hidden" name ="item_id" value = "<?php echo $value['item_id'] ?>">
+                            <input type="hidden" name="link" value="../../frontend/manage/manage.php">
+                            <input type="hidden" name="item_id" value="<?php echo $value['item_id']; ?>">
 
-                            <!-- Delete Button as a link with the item ID -->
-                            <button type="submit" class="btn btn-danger delete-item-btn" name="item_id" value="<?php echo $value['item_id']; ?>">
+                            <button type="button" class="btn btn-danger delete-item-btn" data-form-id="deleteForm-<?php echo $value['item_id']; ?>">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>

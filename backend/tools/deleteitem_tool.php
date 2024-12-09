@@ -7,6 +7,7 @@ session_start();
 if (isset($_POST['item_id'])) {
     $item_id = $_POST['item_id'];
     $item = new Item();
+    $item->id = $item_id;
     $message = [];
     $link ;
 
@@ -14,7 +15,7 @@ if (isset($_POST['item_id'])) {
         $link= $_POST['link'];
     }
 
-    if ($item->delete_item($item_id)) {
+    if ($item->delete_item()) {
         $message['title'] = "Item deleted!";
         $message['success'] = "Record is now updated.";
         $message['delete'] = true;

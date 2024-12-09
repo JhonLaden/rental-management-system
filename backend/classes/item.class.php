@@ -180,12 +180,12 @@ class Item{
     }
     
 
-    function delete_item($item_id) {
+    function delete_item() {
         $sql = "UPDATE item 
         SET is_active = false
-        WHERE item_id = :item_id";
+        WHERE item_id = :item_id LIMIT 1";
         $query = $this->db->connect()->prepare($sql);
-        $query->bindParam(':item_id', $item_id);
+        $query->bindParam(':item_id', $this->id);
         
         return $query->execute();
     }

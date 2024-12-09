@@ -157,22 +157,28 @@ class Item{
     }
 
     function update_item() {
+        // SQL query to update the item
         $sql = "UPDATE item 
-                SET name = :name, type = :type, size = :size, 
-                    deposit_cost = :deposit_cost, rental_cost = :rental_cost
+                SET name = :name, type = :type, photo = :photo, description = :description, deposit_cost = :deposit_cost, rental_cost = :rental_cost
                 WHERE item_id = :id AND owner_id = :owner_id";
-
+    
+        // Prepare the query
         $query = $this->db->connect()->prepare($sql);
+    
+        // Bind parameters
         $query->bindParam(':name', $this->name);
         $query->bindParam(':type', $this->type);
-        $query->bindParam(':size', $this->size);
+        $query->bindParam(':photo', $this->photo); 
+        $query->bindParam(':description', $this->description);
         $query->bindParam(':deposit_cost', $this->deposit_cost);
         $query->bindParam(':rental_cost', $this->rental_cost);
         $query->bindParam(':id', $this->id);
         $query->bindParam(':owner_id', $this->owner_id);
-
-        return $query->execute(); // Return the result directly
+    
+        // Execute and return the result
+        return $query->execute();
     }
+    
 
     function delete_item($item_id) {
         $sql = "UPDATE item 

@@ -22,8 +22,10 @@
                     <th class = "text-center">Schedule ID</th>
                     <th class = "text-center">Item Name</th>
                     <th class = "text-center">Borrower Name</th>
+                    <th class = "text-center">Rental Cost</th>
                     <th class = "text-center">Deposit Cost</th>
-                    <th class = "text-center">Cost</th>
+                    <th class = "text-center">Delivery Cost</th>
+                    <th class = "text-center">Total Cost</th>
                     <th class = "text-center">Status</th>
                 
                     <th class = "text-center">Action</th>
@@ -47,9 +49,14 @@
 
                     <td><?php echo $value['name']; ?></td>
                     <td><?php echo $value['borrower_firstname'] .' '. $value['borrower_lastname']; ?></td>
+                    <td class = "text-capitalize"><?php echo '₱' . ' ' . $value['rental_cost'] ;?></td>
+                    <td class = "text-capitalize"><?php echo '₱' . ' ' . $value['deposit_cost'] ;?></td>
+                    <td class="text-capitalize">
+                        <?php echo ($value['method'] == 'delivery') ? '₱ 170.00' : '₱ 0.00'; ?>
+                    </td>
+
 
                     <td class = "text-center"><?php echo '₱' . ' ' . $value['cost'] ;?></td>
-                    <td class = "text-capitalize"><?php echo '₱' . ' ' . $value['rental_cost'] ;?></td>
                     <td class = "text-capitalize"> <?php echo $value['status'] ?></td>
 
                     <td class="text-center d-flex justify-content-center gap-2 align-items-center">
@@ -147,10 +154,10 @@
             	
                 $(document).ready(function() {
                     $('#example').DataTable({
-                        "order": [[5, 'asc']], // Sorting based on the 4th column (index 3)
+                        "order": [[8, 'asc']], // Sorting based on the 4th column (index 3)
                         "columnDefs": [
                             {
-                                "targets": 5, // Target the status column (index 3)
+                                "targets": 8, // Target the status column (index 3)
                                 "orderDataType": "dom-text", // Optional: helps sorting by text values (like 'pending', 'rented')
                             }
                         ]

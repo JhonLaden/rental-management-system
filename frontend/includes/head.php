@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="../static/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="../static/css/flatpickr.min.css">
+
 
    
 </head>

@@ -13,6 +13,8 @@ class Schedule{
     public $item_id;
     public $cost;
     public $update;
+    public $method;
+    public $address;
     public $logged_user_id;
 
     protected $db ;
@@ -34,13 +36,18 @@ class Schedule{
         $item->id = $this->item_id; 
         
         $item_cost = $item->get_item_cost(); 
-        
+        $deposit_cost = $item->get_deposit_cost(); 
+
+
         // Calculate the total rental cost
-        $total_cost = $item_cost * $rental_days;
+        $total_cost = ($item_cost * $rental_days) + $deposit_cost;
+        if($this->method == 'delivery'){
+            $total_cost += 170;
+        }
 
         // Insert the schedule with the calculated cost
-        $sql = "INSERT INTO rental_schedule (start_date, return_date, borrower_id, lender_id, item_id, cost) 
-                VALUES (:start_date, :return_date, :borrower_id, :lender_id, :item_id, :cost);";
+        $sql = "INSERT INTO rental_schedule (start_date, return_date, borrower_id, lender_id, item_id, cost, method, delivery_address) 
+                VALUES (:start_date, :return_date, :borrower_id, :lender_id, :item_id, :cost, :method, :delivery_address);";
         
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':start_date', $this->start_date);
@@ -49,6 +56,8 @@ class Schedule{
         $query->bindParam(':lender_id', $this->lender_id);
         $query->bindParam(':item_id', $this->item_id);
         $query->bindParam(':cost', $total_cost); // Bind the calculated total cost
+        $query->bindParam(':method', $this->method);
+        $query->bindParam(':delivery_address', $this->delivery_address);
     
         // Execute the query to insert schedule
         if ($query->execute()) {

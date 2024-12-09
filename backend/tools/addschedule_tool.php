@@ -18,6 +18,9 @@
             $return_date = htmlentities($_POST['return_date'] ?? '');
             $borrower_id = htmlentities($_POST['borrower_id'] ?? '');
             $lender_id = htmlentities($_POST['lender_id'] ?? '');
+            $method = htmlentities($_POST['method'] ?? '');
+            $delivery_address = htmlentities($_POST['delivery_address'] ?? '');
+
             $item_id = htmlentities($_POST['item_id'] ?? '');
     
             $item->id = $item_id; 
@@ -28,7 +31,11 @@
             $schedule->return_date = $return_date;
             $schedule->borrower_id = $borrower_id;
             $schedule->lender_id = $lender_id;
+            $schedule->method = $method;
+            $schedule->delivery_address = $delivery_address;
             $schedule->item_id = $item_id;
+
+            $_SESSION['sched'] = $schedule;
 
             if ($schedule->add_schedule() ) {
                 $message['add_schedule'] = true;

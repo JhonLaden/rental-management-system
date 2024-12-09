@@ -223,7 +223,45 @@ class Item{
             return 0;
         }
     }
+    public function get_deposit_cost() {
+        // SQL query to get the cost for the item based on its ID
+        $sql = "SELECT deposit_cost FROM item WHERE item_id = :id LIMIT 1";
+        
+        // Prepare and execute the query
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':id', $this->id);
+        
+        // Execute the query
+        if ($query->execute()) {
+            // Fetch the result
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            
+            // Return the cost per day if available
+            if ($result) {
+                return $result['deposit_cost'];
+            } else {
+                // If item not found, return 0 or handle it as needed
+                return 0;
+            }
+        } else {
+            // If the query fails, handle the error (e.g., return 0)
+            return 0;
+        }
+    }
+
+    function select_item_by_id(){
+        $sql = "SELECT * FROM item
+        WHERE item.item_id = :item_id";
     
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':item_id', $this->id);
+
+        if($query->execute()){
+            return $query = $query->fetch();
+        } else {
+            return [];
+        }
+    }
 
 }
 

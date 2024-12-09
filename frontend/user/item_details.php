@@ -9,8 +9,6 @@
 
     if(isset($_SESSION['loggeduser'])){
         $logged_user = $_SESSION['loggeduser'];
-    }else{
-        header('location: ../../');
     }
 
     $item = new Item();
@@ -70,7 +68,7 @@
                 </div>
             </div>
 
-            <?php if ($selected_item['in_stock'] && $logged_user['type'] == 'client') { ?>
+            <?php if ($selected_item['in_stock'] && isset($logged_user) && $logged_user['type'] == 'client') { ?>
             <div class="d-grid">
                 <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id'] . "&lender_id=" . $selected_item['owner_id']; ?>" class="btn btn-primary btn-lg">
                     Rent Item

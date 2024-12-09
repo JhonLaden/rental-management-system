@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2024 at 11:23 PM
+-- Generation Time: Dec 09, 2024 at 09:01 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -59,7 +59,7 @@ INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_c
 (70, 'hgaha', 'suit', NULL, 32.00, 23.00, 0, 7, 1, 0, 'dumb&toopid.png', ''),
 (71, 'White Gown', 'gown', NULL, 200.00, 250.00, 0, 7, 1, 1, 'gown1.jpeg', ''),
 (72, 'black suit', 'suit', NULL, 200.00, 250.00, 0, 7, 1, 1, 'suit4.jpeg', ''),
-(73, 'red suit', 'suit', NULL, 250.00, 300.00, 0, 7, 1, 1, 'suit1.jpeg', 'testing description');
+(73, 'red suit', 'suit', NULL, 250.00, 300.00, 0, 7, 0, 1, 'suit1.jpeg', 'testing description');
 
 -- --------------------------------------------------------
 
@@ -76,20 +76,32 @@ CREATE TABLE `rental_schedule` (
   `item_id` int(11) DEFAULT NULL,
   `status` enum('pending','rented','canceled','overdue','finished') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `cost` decimal(11,2) NOT NULL DEFAULT 0.00
+  `cost` decimal(11,2) NOT NULL DEFAULT 0.00,
+  `method` varchar(255) DEFAULT NULL,
+  `delivery_address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rental_schedule`
 --
 
-INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`, `status`, `created_at`, `cost`) VALUES
-(82, '2024-12-09', '2024-12-19', 4, 7, 67, 'canceled', '2024-12-08 05:45:26', 3240.00),
-(83, '2024-12-09', '2024-12-10', 4, 7, 64, 'finished', '2024-12-08 05:46:22', 32432.00),
-(84, '2024-12-09', '2024-12-11', 4, 7, 67, 'finished', '2024-12-08 10:55:30', 648.00),
-(85, '2024-12-10', '2024-12-12', 4, 6, 69, 'pending', '2024-12-08 17:33:52', 86.00),
-(86, '2024-12-10', '2024-12-11', 4, 7, 70, 'canceled', '2024-12-08 21:44:03', 23.00),
-(87, '2024-12-10', '2024-12-12', 4, 7, 70, 'canceled', '2024-12-08 21:49:47', 46.00);
+INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borrower_id`, `lender_id`, `item_id`, `status`, `created_at`, `cost`, `method`, `delivery_address`) VALUES
+(82, '2024-12-09', '2024-12-19', 4, 7, 67, 'canceled', '2024-12-08 05:45:26', 3240.00, NULL, NULL),
+(83, '2024-12-09', '2024-12-10', 4, 7, 64, 'finished', '2024-12-08 05:46:22', 32432.00, NULL, NULL),
+(84, '2024-12-09', '2024-12-11', 4, 7, 67, 'finished', '2024-12-08 10:55:30', 648.00, NULL, NULL),
+(85, '2024-12-10', '2024-12-12', 4, 6, 69, 'pending', '2024-12-08 17:33:52', 86.00, NULL, NULL),
+(86, '2024-12-10', '2024-12-11', 4, 7, 70, 'canceled', '2024-12-08 21:44:03', 23.00, NULL, NULL),
+(87, '2024-12-10', '2024-12-12', 4, 7, 70, 'canceled', '2024-12-08 21:49:47', 46.00, NULL, NULL),
+(88, '2024-12-10', '2024-12-11', 4, 7, 73, 'canceled', '2024-12-08 23:25:03', 300.00, NULL, NULL),
+(89, '2024-12-10', '2024-12-12', 4, 7, 71, 'canceled', '2024-12-09 00:21:32', 500.00, NULL, NULL),
+(90, '2024-12-10', '2024-12-12', 4, 7, 73, 'canceled', '2024-12-09 00:57:12', 600.00, NULL, NULL),
+(91, '2024-12-13', '2024-12-17', 4, 7, 73, 'canceled', '2024-12-09 01:23:04', 1200.00, NULL, NULL),
+(92, '0000-00-00', '0000-00-00', 4, 7, 73, 'canceled', '2024-12-09 03:50:46', 0.00, 'pickup', NULL),
+(93, '2024-12-10', '2024-12-11', 4, 7, 72, 'canceled', '2024-12-09 04:07:32', 250.00, 'delivery', NULL),
+(94, '2024-12-09', '2024-12-10', 4, 7, 73, 'canceled', '2024-12-09 04:08:42', 300.00, 'delivery', 'Recodo '),
+(95, '2024-12-09', '2024-12-10', 4, 7, 73, 'canceled', '2024-12-09 04:15:50', 720.00, 'delivery', 'Recodo'),
+(96, '2024-12-09', '2024-12-11', 5, 7, 72, 'canceled', '2024-12-09 04:26:43', 870.00, 'delivery', 'Ayala'),
+(97, '2024-12-09', '2024-12-10', 5, 7, 73, 'pending', '2024-12-09 05:01:21', 550.00, 'pickup', '');
 
 --
 -- Triggers `rental_schedule`
@@ -182,7 +194,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `rental_schedule`
 --
 ALTER TABLE `rental_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `user`

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 09:01 AM
+-- Generation Time: Dec 09, 2024 at 05:29 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -57,9 +57,15 @@ INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_c
 (68, 'another item', 'gown', 21.00, 23.00, 20.00, 1, 6, 1, 0, '', ''),
 (69, 'Hikoo', 'suit', 32.00, 23.00, 43.00, 1, 6, 0, 0, '', ''),
 (70, 'hgaha', 'suit', NULL, 32.00, 23.00, 0, 7, 1, 0, 'dumb&toopid.png', ''),
-(71, 'White Gown', 'gown', NULL, 200.00, 250.00, 0, 7, 1, 1, 'gown1.jpeg', ''),
-(72, 'black suit', 'suit', NULL, 200.00, 250.00, 0, 7, 1, 1, 'suit4.jpeg', ''),
-(73, 'red suit', 'suit', NULL, 250.00, 300.00, 0, 7, 0, 1, 'suit1.jpeg', 'testing description');
+(71, 'White Gown', 'gown', 0.00, 200.00, 250.00, 0, 7, 1, 0, 'gown1.jpeg', 'asdfsdf sf sad'),
+(72, 'black suit', 'suit', NULL, 200.00, 250.00, 0, 7, 1, 0, 'suit3.jpeg', 'sdaf'),
+(73, 'red suit', 'suit', NULL, 250.00, 300.00, 0, 7, 0, 0, 'suit1.jpeg', 'testing description'),
+(74, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 7, 1, 0, 'gown1.jpeg', 'description'),
+(75, 'red suit', 'suit', NULL, 200.00, 300.00, 0, 7, 1, 0, 'suit1.jpeg', 'ahaha'),
+(76, 'red suit', 'suit', NULL, 300.00, 200.00, 0, 7, 1, 1, 'suit1.jpeg', 'haha'),
+(77, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 6, 1, 0, 'gown1.jpeg', 'haha'),
+(78, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 6, 1, 0, 'gown1.jpeg', 'ahaha'),
+(79, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 6, 1, 1, 'gown1.jpeg', 'haha');
 
 -- --------------------------------------------------------
 
@@ -152,7 +158,13 @@ INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`
 (4, 'Isaac', 'Bayle', 'Adjaluddin', 'isaac@gmail.com', 'IsaacRaddi', '123', 'client', 0),
 (5, 'edil khan', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123', 'client', 0),
 (6, 'admin', '', 'admin', 'admin@admin.com', 'admin', 'admin', 'admin', 0),
-(7, 'zac', 'b', 'bandahala', 'a@yahoo.com', 'a', '1', 'lender', 0);
+(7, 'zac', 'b', 'bandahala', 'a@yahoo.com', 'a', '1', 'lender', 0),
+(8, 'Isaac', '', 'Adjaluddin', 'isaacradjaluddin@gmail.com', 'sf', 'sf', 'client', 0),
+(9, 'lender created', '', 'Adjaluddin', 'isaacrasfsdadjaluddin@gmail.com', 'haha', 'haha', 'lender', 0),
+(10, 'Isaac', '', 'Adjaluddinasfd', 'isaasdfsdacradjaluddin@gmail.com', 'asdfsda', 'asfsd', 'lender', 0),
+(11, 'asdfsda', '', 'asfsad', 'afsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0),
+(12, 'asdfsda', '', 'asfsad', 'afsafdsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0),
+(13, 'Isaacasdf', '', 'Adjaluddinasdf', 'isaacradasdfsdajaluddin@gmail.com', 'asdf', 'asdf', 'lender', 0);
 
 --
 -- Indexes for dumped tables
@@ -188,7 +200,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `rental_schedule`
@@ -200,7 +212,7 @@ ALTER TABLE `rental_schedule`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

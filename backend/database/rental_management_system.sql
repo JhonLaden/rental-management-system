@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 12:57 PM
+-- Generation Time: Dec 11, 2024 at 03:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -164,8 +164,8 @@ INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`
 (9, 'lender created', '', 'Adjaluddin', 'isaacrasfsdadjaluddin@gmail.com', 'haha', 'haha', 'lender', 0, 1),
 (10, 'Isaac', '', 'Adjaluddinasfd', 'isaasdfsdacradjaluddin@gmail.com', 'asdfsda', 'asfsd', 'lender', 0, 1),
 (11, 'asdfsda', '', 'asfsad', 'afsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 1),
-(12, 'asdfsda', '', 'asfsad', 'afsafdsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 1),
-(13, 'Isaacasdf', '', 'Adjaluddinasdf', 'isaacradasdfsdajaluddin@gmail.com', 'asdf', 'asdf', 'lender', 0, 1);
+(12, 'asdfsda', '', 'asfsad', 'afsafdsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 0),
+(13, 'Isaacasdf', '', 'Adjaluddinasdf', 'isaacradasdfsdajaluddin@gmail.com', 'asdf', 'asdf', 'lender', 0, 0);
 
 --
 -- Indexes for dumped tables

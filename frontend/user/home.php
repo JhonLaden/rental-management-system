@@ -114,7 +114,20 @@
 
         ?>
         <script src = "../js/login.js"></script>
-
+        <?php 
+            if(isset($_SESSION['failed'])){
+                $failed = $_SESSION['failed'];
+                unset($_SESSION['failed']);?>
+                <script>
+                    Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Sorry, but the account has been terminated!",
+                    });
+                </script>
+        <?php  
+            }
+        ?>
 <?php 
     include '../includes/footer.php';
 ?>

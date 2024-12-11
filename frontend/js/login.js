@@ -24,6 +24,8 @@ $(document).ready(function(){
                     let data = xhr.response;
                     if(data == 'success'){
                         location.href = "../user/browse.php";
+                    }else if(data == 'failed'){
+                        location.href = "../user/home.php";
                     } else {
                         errorText.text(data); // Set the text content
                         errorText.css('display', 'block'); // Show the error text

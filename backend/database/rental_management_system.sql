@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 05:29 PM
+-- Generation Time: Dec 11, 2024 at 12:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -146,25 +146,26 @@ CREATE TABLE `user` (
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `type` enum('admin','lender','client') DEFAULT 'client',
-  `successful_lends` int(11) DEFAULT 0
+  `successful_lends` int(11) DEFAULT 0,
+  `is_active` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`, `username`, `password`, `type`, `successful_lends`) VALUES
-(1, 'Jhon Laden', 'Bayle', 'Adjaluddin', 'jhonladen@yahoo.com', 'Jhon', '123', 'lender', 0),
-(4, 'Isaac', 'Bayle', 'Adjaluddin', 'isaac@gmail.com', 'IsaacRaddi', '123', 'client', 0),
-(5, 'edil khan', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123', 'client', 0),
-(6, 'admin', '', 'admin', 'admin@admin.com', 'admin', 'admin', 'admin', 0),
-(7, 'zac', 'b', 'bandahala', 'a@yahoo.com', 'a', '1', 'lender', 0),
-(8, 'Isaac', '', 'Adjaluddin', 'isaacradjaluddin@gmail.com', 'sf', 'sf', 'client', 0),
-(9, 'lender created', '', 'Adjaluddin', 'isaacrasfsdadjaluddin@gmail.com', 'haha', 'haha', 'lender', 0),
-(10, 'Isaac', '', 'Adjaluddinasfd', 'isaasdfsdacradjaluddin@gmail.com', 'asdfsda', 'asfsd', 'lender', 0),
-(11, 'asdfsda', '', 'asfsad', 'afsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0),
-(12, 'asdfsda', '', 'asfsad', 'afsafdsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0),
-(13, 'Isaacasdf', '', 'Adjaluddinasdf', 'isaacradasdfsdajaluddin@gmail.com', 'asdf', 'asdf', 'lender', 0);
+INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`, `username`, `password`, `type`, `successful_lends`, `is_active`) VALUES
+(1, 'Jhon Laden', 'Bayle', 'Adjaluddin', 'jhonladen@yahoo.com', 'Jhon', 'haha', 'lender', 0, 1),
+(4, 'Isaac', 'Bayle', 'Adjaluddin', 'isaac@gmail.com', 'IsaacRaddi', '123', 'client', 0, 1),
+(5, 'edil khann', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123', 'client', 0, 1),
+(6, 'admin', '', 'admin', 'admin@admin.com', 'admin', 'admin', 'admin', 0, 1),
+(7, 'zac', 'b', 'bandahala', 'a@yahoo.com', 'a', '1', 'lender', 0, 1),
+(8, 'Isaac', '', 'Adjaluddin', 'isaacradjaluddin@gmail.com', 'sf', 'sf', 'client', 0, 1),
+(9, 'lender created', '', 'Adjaluddin', 'isaacrasfsdadjaluddin@gmail.com', 'haha', 'haha', 'lender', 0, 1),
+(10, 'Isaac', '', 'Adjaluddinasfd', 'isaasdfsdacradjaluddin@gmail.com', 'asdfsda', 'asfsd', 'lender', 0, 1),
+(11, 'asdfsda', '', 'asfsad', 'afsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 1),
+(12, 'asdfsda', '', 'asfsad', 'afsafdsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 1),
+(13, 'Isaacasdf', '', 'Adjaluddinasdf', 'isaacradasdfsdajaluddin@gmail.com', 'asdf', 'asdf', 'lender', 0, 1);
 
 --
 -- Indexes for dumped tables

@@ -20,6 +20,7 @@ if (isset($_POST['user_id'])) {
         $message['success'] = "The user record has been successfully deleted.";
         $message['delete'] = true;
         $_SESSION['message'] = $message;
+
         header('location: ' . $link);
         exit();
     } else {

@@ -51,7 +51,6 @@ class Users{
             $data = $query->fetchAll();
         }
         return $data;
-        
     }
 
     function show_email(){

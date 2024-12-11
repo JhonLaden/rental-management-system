@@ -28,6 +28,7 @@
 
         // Get the ID of the form to be submitted
         const formId = $(this).data('form-id');
+        console.log(formId);
         const formSelector = `#${formId}`;
 
         // Show SweetAlert confirmation dialog

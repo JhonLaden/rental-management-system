@@ -24,7 +24,7 @@
                     if (!empty($results)) {
                         $i = 1;
                         foreach ($results as $value) {
-                            
+                            if($value['is_active'] == true){                            
                 ?>
                 <tr class = "text-center">
                     <td><?php echo htmlspecialchars($value['user_id']); ?></td>
@@ -43,22 +43,24 @@
                             </button>
                         </form>
                         
-                        <form action="../../backend/tools/deleteuser_tool.php" method="POST" id = "deleteForm">
+                        <form action="../../backend/tools/deleteuser_tool.php" method="POST" id = "deleteForm-<?php echo $value['user_id']; ?>">
                             <!-- Hidden input for delete action -->
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name ="link" value = "../../frontend/admin/manage_accounts.php">
                             <input type="hidden" name ="user_id" value = "<?php echo $value['user_id'] ?>">
 
                             <!-- Delete Button as a link with the item ID -->
-                            <button type="submit" class="btn btn-danger delete-item-btn" name="user_id" value="<?php echo $value['user_id']; ?>">
+                            <button type="button" class="btn btn-danger delete-item-btn" data-form-id="deleteForm-<?php echo $value['user_id']; ?>">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
+                        
                     </td>
 
 
                 </tr>
                 <?php
+                            }
 
                     }
                 } ?>

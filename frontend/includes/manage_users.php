@@ -34,16 +34,19 @@
                     <td><?php echo htmlspecialchars($value['type']); ?></td>
 
                     <td class="text-center d-flex justify-content-center gap-2">
-                        <div>
+                        <form action="../admin/edit_user.php" method="POST" id = "deleteForm">
+                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name ="link" value = "../../frontend/admin/manage_accounts.php">
+                            <input type="hidden" name ="user_id" value = "<?php echo $value['user_id'] ?>">
                             <button class="btn btn-primary  edit-item-btn" >
                                 <i class="bi bi-pencil-square"></i>
                             </button>
-                        </div>
+                        </form>
                         
-                        <form action="../../backend/tools/deleteitem_tool.php" method="POST" id = "deleteForm">
+                        <form action="../../backend/tools/deleteuser_tool.php" method="POST" id = "deleteForm">
                             <!-- Hidden input for delete action -->
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name ="link" value = "../../frontend/manage/manage.php">
+                            <input type="hidden" name ="link" value = "../../frontend/admin/manage_accounts.php">
                             <input type="hidden" name ="user_id" value = "<?php echo $value['user_id'] ?>">
 
                             <!-- Delete Button as a link with the item ID -->

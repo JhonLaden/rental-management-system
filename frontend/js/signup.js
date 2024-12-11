@@ -23,11 +23,9 @@ $(document).ready(function(){
                 if(xhr.status === 200){
                     let data = xhr.response;
                     if(data == 'success'){
-                        
                         location.href = "../user/browse.php";
                     }else if(data = 'admin'){
                         location.href = "../admin/manage_accounts.php";
-
                     } else {
                         errorText.text(data); // Set the text content
                         errorText.css('display', 'block'); // Show the error text

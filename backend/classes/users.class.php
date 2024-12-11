@@ -81,6 +81,51 @@ class Users{
             return null; // Return null if no user is found
         }
     }
+
+    function update_user() {
+        // Base SQL query to update user details
+        $sql = "UPDATE user 
+                SET first_name = :first_name, 
+                    middle_name = :middle_name, 
+                    last_name = :last_name, 
+                    email = :email, 
+                    username = :username";
+    
+        // Append password update conditionally
+        if (!empty($this->password)) {
+            $sql .= ", password = :password";
+        }
+    
+        $sql .= " WHERE user_id = :id";
+        
+        // Prepare the query
+        $query = $this->db->connect()->prepare($sql);
+    
+        // Bind parameters
+        $query->bindParam(':first_name', $this->first_name);
+        $query->bindParam(':middle_name', $this->middle_name);
+        $query->bindParam(':last_name', $this->last_name);
+        $query->bindParam(':email', $this->email);
+        $query->bindParam(':username', $this->username);
+        if (!empty($this->password)) {
+            $query->bindParam(':password', $this->password);
+        }
+        $query->bindParam(':id', $this->id);
+    
+        // Execute and return the result
+        return $query->execute();
+    }
+
+    function delete_user() {
+        $sql = "UPDATE user 
+        SET is_active = false
+        WHERE user_id = :user_id LIMIT 1";
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':user_id', $this->id);
+        
+        return $query->execute();
+    }
+    
 }
 
 ?>

@@ -26,16 +26,7 @@
             Manage Schedules
           </a>
         </li>
-        <li>
-          <a href="../admin/invoice.php" class="<?php echo $invoice ?> nav-link text-light">
-            Invoice
-          </a>
-        </li>
-        <li>
-          <a href="../admin/settings.php" class="<?php echo $settings ?> nav-link text-light">
-            Settings
-          </a>
-        </li>
+       
       </ul>
       <hr>
       <div>

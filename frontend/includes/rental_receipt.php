@@ -93,11 +93,7 @@
                                     <span id="delivery_address"><?php echo $selected_schedule['delivery_address']; ?></span>
                                 </p>
                             <?php endif; ?>
-                            <p><strong>Fee:</strong> 
-                                <span id="fee">
-                                    <?php echo $selected_schedule['method'] === 'delivery' ? '₱ 170.00' : '₱ 0.00'; ?>
-                                </span>
-                            </p>
+                            
                         </div>
                     </div>
                 </div>
@@ -123,6 +119,40 @@
                                     ?>
                                 </span>
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5>Invoice Information</h5>
+                            <p><strong>Rental Cost:</strong> <span id="item_id"><?php echo $selected_schedule['rental_cost'] ?></span></p>
+                            <p><strong>Deposit Cost:</strong> <span id="item_id"><?php echo $selected_schedule['deposit_cost'] ?></span></p>
+                            <p><strong>Rental Cost(Days):</strong> <span id="item_id"><?php echo $selected_schedule['cost'] ?></span></p>
+                            
+                            <p><strong>Method:</strong> <span id="method"><?php echo ucfirst($selected_schedule['method']); ?></span></p>
+                            <?php if ( $selected_schedule['method'] === 'delivery' || $selected_schedule['method'] === 'pickup'): ?>
+                                <p><strong>Delivery Address:</strong> 
+                                    <span id="delivery_address"><?php echo $selected_schedule['delivery_address']; ?></span>
+                                </p>
+                            <?php endif; ?>
+                            <?php
+                                $additionalFee = 0; 
+                            ?>
+
+                            <p><strong>Additional Fee:</strong> 
+                                <span id="fee">
+                                    <?php echo $selected_schedule['method'] === 'delivery' ? '₱ 170.00' : '₱ 0.00';
+                                        $additionalFee = 170;
+                                    ?>
+                                </span>
+                            </p>
+                            <p><strong>Total Rental Cost:</strong> <span id="item_id"><?php
+                                echo $selected_schedule['cost'] + $selected_schedule['deposit_cost'] ?>
+                             </span></p>
                         </div>
                     </div>
                 </div>

@@ -1,43 +1,40 @@
 <?php
 
 
-    $title = 'browse';
-    require '../includes/head.php';
-    require '../includes/header.php';
+$title = 'browse';
+require '../includes/head.php';
+require '../includes/header.php';
 
-    require_once '../../backend/classes/item.class.php';
+require_once '../../backend/classes/item.class.php';
 
-    if(isset($_SESSION['loggeduser'])){
-        $logged_user = $_SESSION['loggeduser'];
-    }
+if (isset($_SESSION['loggeduser'])) {
+    $logged_user = $_SESSION['loggeduser'];
+}
 
-    $item = new Item();
+$item = new Item();
 
-    if(isset($_GET['item_id'])){
-        $item_id = $_GET['item_id'];
-        $item->id = $item_id;
-        $selected_item = $item->search_item()[0];
+if (isset($_GET['item_id'])) {
+    $item_id = $_GET['item_id'];
+    $item->id = $item_id;
+    $selected_item = $item->search_item()[0];
 
-        $_SESSION['item_id'] = $item_id;
-    }
- 
-   
-    
-    
+    $_SESSION['item_id'] = $item_id;
+}
+
 ?>
-        
-        <div class="container mt-5">
+
+<div class="container mt-5">
     <div class="row">
         <!-- Image and Item Info Section -->
         <div class="col-lg-8 mb-4">
             <div class="card shadow-sm">
-            <div class="text-center" style = "height:550px">
-                <img src="../assets/uploads/<?php echo $selected_item['photo'] ?>" class="img-fluid h-100 w-100"  alt="Gown" style = " object-fit: cover;" >
-            </div>
+                <div class="text-center" style="height:550px">
+                    <img src="../assets/uploads/<?php echo $selected_item['photo'] ?>" class="img-fluid h-100 w-100" alt="Gown" style=" object-fit: cover;">
+                </div>
                 <div class="card-body">
                     <h5 class="card-title text-capitalize"><?php echo $selected_item['name']; ?></h5>
                     <p class="card-text">
-                        Availability: 
+                        Availability:
                         <span class="badge <?php echo ($selected_item['in_stock']) ? 'bg-success' : 'bg-danger'; ?>">
                             <?php echo ($selected_item['in_stock']) ? 'In Stock' : 'Not Available'; ?>
                         </span>
@@ -69,53 +66,53 @@
             </div>
 
             <?php if ($selected_item['in_stock'] && isset($logged_user) && $logged_user['type'] == 'client') { ?>
-            <div class="d-grid">
-                <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id'] . "&lender_id=" . $selected_item['owner_id']; ?>" class="btn btn-primary btn-lg">
-                    Rent Item
-                </a>
-            </div>
+                <div class="d-grid">
+                    <a href="../user/add_schedule_form.php?item_id=<?php echo $selected_item['item_id'] . "&lender_id=" . $selected_item['owner_id']; ?>" class="btn btn-primary btn-lg">
+                        Rent Item
+                    </a>
+                </div>
             <?php } ?>
         </div>
     </div>
 </div>
 
 <script>
-    <?php if (isset($_SESSION['message'])) { 
+    <?php if (isset($_SESSION['message'])) {
         $message = $_SESSION['message'];
         unset($_SESSION['message']);
     ?>
-    Swal.fire({
-        title: "<?php echo $message['title']; ?>",
-        text: "<?php echo $message['success']; ?>",
-        icon: "success"
-    });
+        Swal.fire({
+            title: "<?php echo $message['title']; ?>",
+            text: "<?php echo $message['success']; ?>",
+            icon: "success"
+        });
     <?php } ?>
 </script>
 
 
-      <?php
+<?php
 
-        include('../includes/scripts.php');
-      ?>
-    <script>
-        <?php 
-                if(isset($_SESSION['message'])){
-                    $message = $_SESSION['message'];
-                    unset($_SESSION['message']);
+include('../includes/scripts.php');
+?>
+<script>
+    <?php
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        unset($_SESSION['message']);
 
-                    if(isset($message['add_schedule']) ){
-                ?>
-                            Swal.fire({
-                            title: "<?php echo $message['title'] ?>",
-                            text: "<?php echo $message['success'] ?>",
-                            icon: "success"
-                        });
-            <?php
-                    }
-                }
-            ?>
-    </script>
+        if (isset($message['add_schedule'])) {
+    ?>
+            Swal.fire({
+                title: "<?php echo $message['title'] ?>",
+                text: "<?php echo $message['success'] ?>",
+                icon: "success"
+            });
+    <?php
+        }
+    }
+    ?>
+</script>
 
 <?php
-    require '../includes/footer.php';
+require '../includes/footer.php';
 ?>

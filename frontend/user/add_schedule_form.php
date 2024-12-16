@@ -1,21 +1,21 @@
 <?php
-    $title = 'browse';
-    require '../includes/head.php';
-    require '../includes/header.php';
-    require_once '../../backend/classes/item.class.php';
+$title = 'browse';
+require '../includes/head.php';
+require '../includes/header.php';
+require_once '../../backend/classes/item.class.php';
 
-    $item = new Item();
-    $logged_user;
+$item = new Item();
+$logged_user;
 
-    if (isset($_SESSION['loggeduser'])) {
-        $logged_user = $_SESSION['loggeduser'];
-    }
+if (isset($_SESSION['loggeduser'])) {
+    $logged_user = $_SESSION['loggeduser'];
+}
 
-    if (isset($_GET['item_id'])) {
-        $item_id = $_GET['item_id'];
-        $item->id = $item_id;
-        $selected_item = $item->search_item()[0];
-    }
+if (isset($_GET['item_id'])) {
+    $item_id = $_GET['item_id'];
+    $item->id = $item_id;
+    $selected_item = $item->search_item()[0];
+}
 ?>
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
@@ -60,7 +60,7 @@
                     <textarea class="form-control" id="deliveryAddress" name="delivery_address" rows="3" placeholder="Enter your delivery address"></textarea>
                 </div>
 
-                
+
 
                 <!-- Error Messages -->
                 <div class="error-text text-danger text-center" style="display: none;"></div>
@@ -75,42 +75,42 @@
     </div>
 </div>
 <?php
-    include('../includes/scripts.php');
-    
+include('../includes/scripts.php');
+
 ?>
 <script src="../js/addschedule.js">
-   
+
 
 </script>
 
 <script>
-     document.addEventListener('DOMContentLoaded', function () {
-    const deliveryRadio = document.getElementById('delivery');
-    const pickupRadio = document.getElementById('pickup');
-    const addressInput = document.getElementById('addressInput');
+    document.addEventListener('DOMContentLoaded', function() {
+        const deliveryRadio = document.getElementById('delivery');
+        const pickupRadio = document.getElementById('pickup');
+        const addressInput = document.getElementById('addressInput');
 
-    deliveryRadio.addEventListener('change', function () {
-        if (deliveryRadio.checked) {
-            addressInput.style.display = 'block';
-        }
+        deliveryRadio.addEventListener('change', function() {
+            if (deliveryRadio.checked) {
+                addressInput.style.display = 'block';
+            }
+        });
+
+        pickupRadio.addEventListener('change', function() {
+            if (pickupRadio.checked) {
+                addressInput.style.display = 'none';
+            }
+        });
+
+
+
+
     });
-
-    pickupRadio.addEventListener('change', function () {
-        if (pickupRadio.checked) {
-            addressInput.style.display = 'none';
-        }
-    });
-
-
-        
-
-});
 </script>
 
 <?php
-    include('../includes/add_schedule_script.php');
+include('../includes/add_schedule_script.php');
 ?>
 
 <?php
-    require '../includes/footer.php';
+require '../includes/footer.php';
 ?>

@@ -59,7 +59,7 @@ $accounts = $users->show();
                                 <li><a class="dropdown-item" href="../manage/manage.php">Manage Items</a></li>
                             <?php endif; ?>
 
-                            <li><a class="dropdown-item" href="../view/view.php">View Items</a></li>
+                            <li><a class="dropdown-item" href="../view/view.php">View Schedules</a></li>
 
 
                             <li><a class="dropdown-item" href="#">Settings</a></li>

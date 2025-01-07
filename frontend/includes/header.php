@@ -52,7 +52,7 @@ $accounts = $users->show();
                         <ul class="dropdown-menu bg">
 
                             <form class="p-0 m-0" action="../profile/profile.php" method="POST">
-                                <a class="dropdown-item" href="../profile/profile.php">Profile</a>
+                                <button class="dropdown-item">Profile</button>
 
                                 <input type="hidden" name="action" value="edit">
                                 <input type="hidden" name="link" value="../../frontend/profile/profile.php">
@@ -65,8 +65,6 @@ $accounts = $users->show();
 
                             <li><a class="dropdown-item" href="../view/view.php">View Schedules</a></li>
 
-
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
 
                             <li>
                                 <hr class="dropdown-divider">

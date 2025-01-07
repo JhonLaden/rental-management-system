@@ -22,7 +22,7 @@
         <div class="card-body">
             <form action="../../backend/tools/edituser_tool.php" id="editUserForm" method="POST">
                 <input type="hidden" name="user_id" value="<?php echo $user2Data['user_id']; ?>">
-                <input type="hidden" name="link" value="<?php echo ($logged_user['type'] == 'admin') ? '../../frontend/admin/edit_user.php' : '../../frontend/manage/edit_user.php'; ?>">
+                <input type="hidden" name="link" value="<?php echo ($logged_user['type'] == 'admin') ? '../../frontend/admin/edit_user.php' : '../../frontend/profile/profile.php'; ?>">
 
                 <!-- First Name -->
                 <div class="mb-3">

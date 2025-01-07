@@ -37,10 +37,7 @@ $accounts = $users->show();
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active fw-bolder" aria-current="page" href="#">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active fw-bolder" aria-current="page" href="#">Contact</a>
+                    <a class="nav-link active fw-bolder" aria-current="page" href="../contact/contact.php">Contact</a>
                 </li>
 
                 <?php

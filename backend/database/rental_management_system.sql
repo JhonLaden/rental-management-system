@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2024 at 04:57 PM
+-- Generation Time: Jan 07, 2025 at 12:44 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -66,7 +66,7 @@ INSERT INTO `item` (`item_id`, `name`, `type`, `size`, `deposit_cost`, `rental_c
 (77, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 6, 1, 0, 'gown1.jpeg', 'haha'),
 (78, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 6, 1, 0, 'gown1.jpeg', 'ahaha'),
 (79, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 6, 1, 0, 'gown1.jpeg', 'haha'),
-(80, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 7, 0, 1, 'gown1.jpeg', 'Size 2');
+(80, 'white gown', 'gown', NULL, 200.00, 300.00, 0, 7, 1, 1, 'gown1.jpeg', 'Size 2');
 
 -- --------------------------------------------------------
 
@@ -123,11 +123,12 @@ INSERT INTO `rental_schedule` (`schedule_id`, `start_date`, `return_date`, `borr
 (95, '2024-12-09', '2024-12-10', 4, 7, 73, 'canceled', '2024-12-09 04:15:50', 720.00, 'delivery', 'Recodo'),
 (96, '2024-12-09', '2024-12-11', 5, 7, 72, 'canceled', '2024-12-09 04:26:43', 870.00, 'delivery', 'Ayala'),
 (97, '2024-12-09', '2024-12-10', 5, 7, 73, 'canceled', '2024-12-09 05:01:21', 550.00, 'pickup', ''),
-(98, '2024-12-16', '2024-12-17', 4, 7, 76, 'rented', '2024-12-16 09:03:33', 500.00, 'pickup', ''),
+(98, '2024-12-16', '2024-12-17', 4, 7, 76, 'overdue', '2024-12-16 09:03:33', 500.00, 'pickup', ''),
 (99, '2024-12-16', '2024-12-17', 4, 6, 79, 'canceled', '2024-12-16 09:49:50', 500.00, 'pickup', ''),
 (100, '2024-12-17', '2024-12-19', 4, 7, 80, 'canceled', '2024-12-16 10:06:35', 800.00, 'pickup', ''),
 (101, '2024-12-17', '2024-12-19', 4, 7, 80, 'canceled', '2024-12-16 10:16:33', 800.00, 'pickup', ''),
-(102, '2024-12-16', '2024-12-17', 4, 7, 80, 'pending', '2024-12-16 10:33:33', 500.00, 'pickup', '');
+(102, '2024-12-16', '2024-12-17', 4, 7, 80, 'canceled', '2024-12-16 10:33:33', 500.00, 'pickup', ''),
+(103, '2025-01-04', '2025-01-05', 4, 7, 76, 'canceled', '2025-01-02 21:39:25', 670.00, 'delivery', 'recodo');
 
 --
 -- Triggers `rental_schedule`
@@ -167,7 +168,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `type` enum('admin','lender','client') DEFAULT 'client',
   `successful_lends` int(11) DEFAULT 0,
-  `is_active` tinyint(1) DEFAULT NULL
+  `is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -179,13 +180,18 @@ INSERT INTO `user` (`user_id`, `first_name`, `middle_name`, `last_name`, `email`
 (4, 'Isaac', 'Bayle', 'Adjaluddin', 'isaac@gmail.com', 'IsaacRaddi', '123', 'client', 0, 1),
 (5, 'edil khann', 'bayle', 'adjaluddin', 'eidil@yahoo.com', 'Eidil', '123', 'client', 0, 1),
 (6, 'admin', '', 'admin', 'admin@admin.com', 'admin', 'admin', 'admin', 0, 1),
-(7, 'zac', 'b', 'bandahala', 'a@yahoo.com', 'a', '1', 'lender', 0, 1),
+(7, 'zacc', 'b', 'bandahala', 'a@yahoo.com', 'a', '1', 'lender', 0, 1),
 (8, 'Isaac', '', 'Adjaluddin', 'isaacradjaluddin@gmail.com', 'sf', 'sf', 'client', 0, 1),
 (9, 'lender created', '', 'Adjaluddin', 'isaacrasfsdadjaluddin@gmail.com', 'haha', 'haha', 'lender', 0, 1),
 (10, 'Isaac', '', 'Adjaluddinasfd', 'isaasdfsdacradjaluddin@gmail.com', 'asdfsda', 'asfsd', 'lender', 0, 1),
-(11, 'asdfsda', '', 'asfsad', 'afsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 1),
+(11, 'asdfsda', '', 'asfsad', 'afsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 0),
 (12, 'asdfsda', '', 'asfsad', 'afsafdsadf@gmail.com', 'asfd', 'asfsad', 'lender', 0, 0),
-(13, 'Isaacasdf', '', 'Adjaluddinasdf', 'isaacradasdfsdajaluddin@gmail.com', 'asdf', 'asdf', 'lender', 0, 0);
+(13, 'Isaacasdf', '', 'Adjaluddinasdf', 'isaacradasdfsdajaluddin@gmail.com', 'asdf', 'asdf', 'lender', 0, 0),
+(14, 'test lender', '', 'haah', 'haha@gmail.com', 'haha', 'haha', 'lender', 0, NULL),
+(15, 'yesy', 'a', 'test', 'my@gmail.com', 'test', 'tetst', 'lender', 0, NULL),
+(16, 'Isaac', 'test', 'Adjaluddin', 'aaa@gmail.com', 'thisisusername', 'ThisisMycomplex_password123', 'lender', 0, NULL),
+(17, 'last test', '', 'afsd', 'aaaa@email.com', 'myusername', 'Mypassword_123', 'lender', 0, 0),
+(18, 'lender test', '', 'lastname', 'lender@gmail.com', 'lender', 'Lender_123', 'lender', 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -240,13 +246,13 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `rental_schedule`
 --
 ALTER TABLE `rental_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

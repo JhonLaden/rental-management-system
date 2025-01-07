@@ -50,7 +50,14 @@ $accounts = $users->show();
                             <?php echo $logged_user['username'];   ?>
                         </a>
                         <ul class="dropdown-menu bg">
-                            <li><a class="dropdown-item" href="../profile/profile.php">Profile</a></li>
+
+                            <form class="p-0 m-0" action="../profile/profile.php" method="POST">
+                                <a class="dropdown-item" href="../profile/profile.php">Profile</a>
+
+                                <input type="hidden" name="action" value="edit">
+                                <input type="hidden" name="link" value="../../frontend/profile/profile.php">
+                                <input type="hidden" name="user_id" value="<?php echo $logged_user['user_id'] ?>">
+                            </form>
 
                             <?php if (isset($logged_user) && ($logged_user['type'] === 'admin' || $logged_user['type'] === 'lender')): ?>
                                 <li><a class="dropdown-item" href="../manage/manage.php">Manage Items</a></li>

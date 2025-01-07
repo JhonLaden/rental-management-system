@@ -324,4 +324,22 @@ class Schedule
         // Return the count
         return $count;
     }
+
+    function countOverdueSchedules()
+    {
+        // Base SQL query with the status condition for rented
+        $sql = "SELECT COUNT(*) FROM rental_schedule WHERE status = 'overdue'";
+
+
+        // Prepare the query
+        $query = $this->db->connect()->prepare($sql);
+
+
+        // Execute and fetch the result
+        $query->execute();
+        $count = $query->fetchColumn(); // Fetch the count result
+
+        // Return the count
+        return $count;
+    }
 }

@@ -50,7 +50,7 @@ $accounts = $users->show();
                             <?php echo $logged_user['username'];   ?>
                         </a>
                         <ul class="dropdown-menu bg">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="../profile/profile.php">Profile</a></li>
 
                             <?php if (isset($logged_user) && ($logged_user['type'] === 'admin' || $logged_user['type'] === 'lender')): ?>
                                 <li><a class="dropdown-item" href="../manage/manage.php">Manage Items</a></li>
